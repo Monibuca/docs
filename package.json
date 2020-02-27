@@ -1,0 +1,26 @@
+{
+  "name": "docs",
+  "version": "1.0.0",
+  "description": "document of monibuca",
+  "main": "index.js",
+  "scripts": {
+    "build": "vuepress build",
+    "dev":"vuepress dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Monibuca/docs.git"
+  },
+  "keywords": [
+    "document"
+  ],
+  "author": "dexter",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Monibuca/docs/issues"
+  },
+  "homepage": "https://github.com/Monibuca/docs#readme",
+  "devDependencies": {
+    "vuepress": "^1.3.1"
+  }
+}
