@@ -2,33 +2,91 @@
 ## 插件的定义
 所谓的插件，没有什么固定的规则，只需要完成`安装`操作即可。插件可以实现任意的功能扩展，最常见的是实现某种传输协议用来推流或者拉流
 
-## 插件的安装
+## 插件的安装(注册)
 下面是内置插件jessica的源码，代表了典型的插件安装
 ```go
-package jessica
+package jessicaplugin
 
 import (
-	. "github.com/langhuihui/monibuca/monica"
+	"io/ioutil"
 	"log"
+	"mime"
 	"net/http"
+	"path"
+	"runtime"
+	"strings"
+
+	. "github.com/Monibuca/engine"
 )
 
 var config = new(ListenerConfig)
+var publicPath string
 
 func init() {
+	_, currentFilePath, _, _ := runtime.Caller(0)
+	publicPath = path.Join(path.Dir(currentFilePath), "dashboard", "public")
 	InstallPlugin(&PluginConfig{
-		Name:   "Jessica",
-		Type:   PLUGIN_SUBSCRIBER,
-		Config: config,
-		Run:    run,
+		Name:    "Jessica",
+		Type:    PLUGIN_SUBSCRIBER,
+		Config:  config,
+		UI:      path.Join(path.Dir(currentFilePath), "dashboard", "ui", "plugin-jessica.min.js"),
+		Version: "1.0.0",
+		Run:     run,
 	})
 }
 func run() {
 	log.Printf("server Jessica start at %s", config.ListenAddr)
+	http.HandleFunc("/jessibuca/", jessibuca)
 	log.Fatal(http.ListenAndServe(config.ListenAddr, http.HandlerFunc(WsHandler)))
 }
+func jessibuca(w http.ResponseWriter, r *http.Request) {
+	filePath := strings.TrimPrefix(r.URL.Path, "/jessibuca")
+	if mime := mime.TypeByExtension(path.Ext(filePath)); mime != "" {
+		w.Header().Set("Content-Type", mime)
+	}
+	if f, err := ioutil.ReadFile(publicPath + filePath); err == nil {
+		if _, err = w.Write(f); err != nil {
+			w.WriteHeader(500)
+		}
+	} else {
+		w.WriteHeader(404)
+	}
+}
+
 ```
-当主程序读取配置文件完成解析后，会调用各个插件的Run函数，上面代码中执行了一个http的端口监听
+
+### 源码说明
+
+- init会在go项目启动最开始的时候执行，我们需要在引擎Run之前注册我们的插件。
+- 注册插件，是调用引擎提供的InstallPlugin函数，传入插件的关键信息。
+- 插件的名称Name必须是唯一的，只需要保证在项目中唯一即可。
+- 插件的Config属性是一个自定义的结构体，只需要保证配置文件的解析和这个结构体定义一致即可。
+- 插件的UI属性是该插件的界面部分，如何开发界面请参阅后面的文档。这个地方是传入UI的js文件的绝对路径。
+- 当主程序读取配置文件完成解析后，会调用各个插件的Run函数，上面代码中执行了一个http的端口监听
+- jessica插件的界面需要读取一些静态资源，所以利用了Gateway的http服务，我们注册了一个路由。所有插件都可以共用Gateway插件的http服务，但要注意的是路由不可以有冲突。当然插件也可以自己创建http服务，启用不同的端口号。
+
+## 开发插件的UI界面
+
+插件的UI界面采用了模块化方式加载。即，所有的插件均为一个Web Component，Gateway插件提供后台界面的外壳，然后根据插件提供的组件进行加载显示。
+
+::: tip 参考
+https://cli.vuejs.org/zh/guide/build-targets.html#web-components-%E7%BB%84%E4%BB%B6
+:::
+
+为了能正确的加载插件的UI组件，必须遵守如下规则：
+1. 创建一个vue单文件组件作为UI的入口，可以嵌套其他的vue组件调用
+2. 如果需要载入iview的css，需要在style标签内写入`@import url("/iview.css");`
+3. 必须导出为Web Component，名称必须为plugin-[组件名小写]
+例如：下面的npm命令将index.vue导出名为plugin-jessica 的Web Component，导出的文件在npm项目下的ui目录。
+```json
+"scripts": {
+    "build": "vue-cli-service build --dest ui --target wc --name plugin-jessica index.vue"
+}
+```
+
+## 开发无UI的插件
+
+在注册插件的时候UI属性留空即可
 
 ## 开发订阅者插件
 所谓订阅者就是用来从流媒体服务器接收音视频流的程序，例如RTMP协议执行play命令后、http-flv请求响应程序、websocket响应程序。内置插件中录制flv程序也是一个特殊的订阅者。
@@ -37,9 +95,9 @@ func run() {
 package HDL
 
 import (
-	. "github.com/langhuihui/monibuca/monica"
-	"github.com/langhuihui/monibuca/monica/avformat"
-	"github.com/langhuihui/monibuca/monica/pool"
+	. "github.com/Monibuca/engine"
+	"github.com/Monibuca/engine/avformat"
+	"github.com/Monibuca/engine/pool"
 	"log"
 	"net/http"
 	"strings"
@@ -52,6 +110,7 @@ func init() {
 		Name:   "HDL",
 		Type:   PLUGIN_SUBSCRIBER,
 		Config: config,
+		Version:"1.0.0",
 		Run:    run,
 	})
 }

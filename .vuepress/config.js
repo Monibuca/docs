@@ -11,5 +11,5 @@ module.exports = {
         ]
     },
     title: 'Monibuca',
-    base: '/docs/'
+    base: '/'
 }

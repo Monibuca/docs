@@ -11,20 +11,20 @@ Monibuca 提供了可供定制化开发的插件机制，可以任意扩展其�
 
 将GOPATH的bin目录加入环境变量PATH中，这样可以快速启动Monibuca实例管理器
 
-### step1 安装Monibuca
+### step1 安装monica
 ```bash
-go get github.com/langhuihui/monibuca
+go get github.com/Monibuca/monica
 ```
-安装完成后会在GOPATH的bin目录下生成monibuca可执行文件
+安装完成后会在GOPATH的bin目录下生成monica可执行文件
 
 ### step2 启动monibuca实例管理器
 如果GOPATH的bin目录已经加入PATH环境变量，则可以直接执行
 ```bash
-monibuca
+monica
 ```
 程序默认监听8000端口，你也可以带上参数指定启动的端口
 ```bash
-monibuca -port 8001
+monica -port 8001
 ```
 ### step3 创建实例
 浏览器打开上面的端口地址，出现实例管理器页面，点击创建标签页，按照提示选择实例放置的目录和插件，进行创建。
@@ -34,7 +34,7 @@ monibuca -port 8001
 
 1. main.go
 2. config.toml
-3. restart.sh
+3. restart.sh（windows下为restart.bat)
 
 ### main.go
 实例启动的主文件，初始化各类插件，然后调用配置文件启动引擎
@@ -42,8 +42,12 @@ monibuca -port 8001
 package main
 
 import (
-	. "github.com/langhuihui/monibuca/monica"
-	_ "github.com/langhuihui/monibuca/plugins"
+	_ "github.com/Monibuca/clusterplugin"
+	. "github.com/Monibuca/engine"
+	_ "github.com/Monibuca/gatewayplugin"
+	_ "github.com/Monibuca/jessicaplugin"
+	_ "github.com/Monibuca/logrotateplugin"
+	_ "github.com/Monibuca/rtmpplugin"
 )
 
 func main() {
