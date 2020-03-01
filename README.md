@@ -1,4 +1,13 @@
 # Monibuca快速起步
+
+## 项目地址
+
+github.com/Monibuca
+
+## 主页
+
+https://monibuca.com
+
 ## 介绍
 Monibuca 是一个开源的流媒体服务器开发框架，适用于快速定制化开发流媒体服务器，可以对接CDN厂商，作为回源服务器，也可以自己搭建集群部署环境。
 丰富的内置插件提供了流媒体服务器的常见功能，例如rtmp server、http-flv、视频录制、QoS等。除此以外还内置了后台web界面，方便观察服务器运行的状态。
