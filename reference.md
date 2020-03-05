@@ -11,6 +11,7 @@
 - [使用JS实现RTMP协议直播（二）](https://my.oschina.net/langhuihui/blog/602265)
 - [使用JS实现RTMP协议直播（三）](https://my.oschina.net/langhuihui/blog/612144)
 - [mp4无法用于直播流](https://my.oschina.net/langhuihui/blog/519901)
+
 ## 文章
 
 - [从H264/H265码流中获取宽、高及帧率 - 华的专栏 - 博客频道 - CSDN.NET](http://blog.csdn.net/wh8_2011/article/details/52175275)
@@ -29,6 +30,8 @@
 - [RTMP协议封装H264格式详解 - ... - CSDN博客](https://blog.csdn.net/jctian000/article/details/93205093)
 - [FFmpeg RTMP推HEVC/H265流 - James的博客 - CSDN博客](https://blog.csdn.net/smallhujiu/article/details/81703434)
 - [RTSP 协议分析-转载 - yanfake - 博客园](https://www.cnblogs.com/yanfake/archive/2012/01/09/2317260.html)
+- [RTMP协议封装AAC(ADTS)格式详解](https://blog.csdn.net/jctian000/article/details/93205521?depth_1-utm_source=distribute.pc_relevant_right.none-task&utm_source=distribute.pc_relevant_right.none-task)
+
 ## 项目
 - https://github.com/mbebenita/Broadway
 - https://github.com/illuspas/Node-Media-Server
