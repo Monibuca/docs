@@ -76,23 +76,23 @@ func main() {
 
 如果注释掉部分插件的配置，那么该插件就不会启用，典型的配置如下：
 ```toml
-[Plugins.HDL]
+[HDL]
 ListenAddr = ":2020"
-[Plugins.Jessica]
+[Jessica]
 ListenAddr = ":8080"
-[Plugins.RTMP]
+[RTMP]
 ListenAddr = ":1935"
-[Plugins.GateWay]
+[GateWay]
 ListenAddr = ":81"
-#[Plugins.Cluster]
+#[Cluster]
 #Master = "localhost:2019"
 #ListenAddr = ":2019"
 #
-#[Plugins.Auth]
+#[Auth]
 #Key="www.monibuca.com"
-#[Plugins.RecordFlv]
+#[RecordFlv]
 #Path="./resouce"
-[Plugins.QoS]
+[QoS]
 Suffix = ["high","medium","low"]
 ```
 具体配置的含义，可以参考每个插件的说明
