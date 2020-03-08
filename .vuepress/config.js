@@ -2,6 +2,11 @@ module.exports = {
     dest: 'dist',
     serviceWorker: true,
     themeConfig: {
+        nav: [
+            { text: 'Home', link: 'https://monibuca.com' },
+            { text: 'Github', link: 'https://github.com/Monibuca/docs' },
+        ],
+        sidebarDepth: 2,
         sidebar: [
             ['/', '起步'],
             ['/develop', '插件开发'],
@@ -10,6 +15,7 @@ module.exports = {
             ['/qanda', 'Q & A'],
             ['/born', '诞生过程'],
             ['/history', '更新日志'],
+            ['/api', 'API'],
             ['/reference', '参考文献'],
         ]
     },

@@ -31,7 +31,7 @@
 - [FFmpeg RTMP推HEVC/H265流 - James的博客 - CSDN博客](https://blog.csdn.net/smallhujiu/article/details/81703434)
 - [RTSP 协议分析-转载 - yanfake - 博客园](https://www.cnblogs.com/yanfake/archive/2012/01/09/2317260.html)
 - [RTMP协议封装AAC(ADTS)格式详解](https://blog.csdn.net/jctian000/article/details/93205521?depth_1-utm_source=distribute.pc_relevant_right.none-task&utm_source=distribute.pc_relevant_right.none-task)
-
+- [RTSP/SDP中的AAC配置](https://blog.csdn.net/wzj_whut/article/details/85472631)
 ## 项目
 - https://github.com/mbebenita/Broadway
 - https://github.com/illuspas/Node-Media-Server
@@ -41,3 +41,7 @@
 - https://github.com/jpemartins/speex.js
 - https://github.com/latelee/H264BSAnalyzer
 - https://github.com/Yuhang/xserver
+- https://github.com/nareix/joy4
+- https://github.com/sevenzoe/gortmp
+- https://github.com/falconray0704/rtsp2rtmp
+- https://github.com/gwuhaolin/livego
