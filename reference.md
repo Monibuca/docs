@@ -32,6 +32,8 @@
 - [RTSP 协议分析-转载 - yanfake - 博客园](https://www.cnblogs.com/yanfake/archive/2012/01/09/2317260.html)
 - [RTMP协议封装AAC(ADTS)格式详解](https://blog.csdn.net/jctian000/article/details/93205521?depth_1-utm_source=distribute.pc_relevant_right.none-task&utm_source=distribute.pc_relevant_right.none-task)
 - [RTSP/SDP中的AAC配置](https://blog.csdn.net/wzj_whut/article/details/85472631)
+- [rtp的视频和音频格式初步分析(golang解析)](https://blog.csdn.net/sweibd/article/details/78072965?depth_1-utm_source=distribute.pc_relevant.none-task&utm_source=distribute.pc_relevant.none-task)
+
 ## 项目
 - https://github.com/mbebenita/Broadway
 - https://github.com/illuspas/Node-Media-Server
