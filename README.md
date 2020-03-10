@@ -14,11 +14,37 @@ Monibuca 是一个开源的流媒体服务器开发框架，适用于快速定�
 也可以自己开发后台管理界面，通过api方式获取服务器的运行信息。
 Monibuca 提供了可供定制化开发的插件机制，可以任意扩展其功能。
 
-## 使用实例管理器启动实例
+## step0 配置golang环境
 
-### step0 配置golang环境
+1. 安装好go以后，可以输入go version查看go的版本。monibuca要求go的版本>=1.13
+2. 配置好GOPATH环境变量，例如`export GOPATH=/usr/local/go`
 
-将GOPATH的bin目录加入环境变量PATH中，这样可以快速启动Monibuca实例管理器
+:::warning
+对于linux下非root用户，需要将用户的环境变量GOPATH设置到具有用户写权限的路径
+:::
+
+3. 如果服务器在国内无法访问golang.org等域名的情况下，需要配置GOPROXY环境变量
+```bash
+export GOPROXY = https://goproxy.io,direct
+```
+
+4. 为了方便直接运行monica，建议将GOPATH/bin 加入PATH的环境变量中
+
+```bash
+export PATH=$PATH:$GOPATH/bin
+```
+
+## 一键启动Demo实例
+
+```bash
+go get github.com/langhuihui/monibuca
+monibuca
+```
+- 然后用浏览器访问 8081端口查看管理界面。
+- demo实例里面默认配置了一些插件，可供快速体验。
+- 如果需要自行选择插件以及二次开发请继续往下看。
+
+## 使用实例管理器创建并启动实例
 
 ### step1 安装monica
 ```bash
@@ -87,6 +113,7 @@ windows系统会弹出cmd窗口，linux系统会在后台运行实例。
 1. main.go
 2. config.toml
 3. restart.sh（windows下为restart.bat)
+4. fatal.log（启动后产生）
 
 ### main.go
 实例启动的主文件，初始化各类插件，然后调用配置文件启动引擎
@@ -142,3 +169,6 @@ Suffix = ["high","medium","low"]
 
 ### restart.sh
 该文件是一个用来重启实例的bash脚本，方便通过实例管理器重启，或者手工重启。
+
+### fatal.log
+这个文件在程序启动后创建，程序意外退出的话，可以查看该文件里的日志信息，程序再次启动会覆盖该文件。
