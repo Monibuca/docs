@@ -267,6 +267,23 @@ func (s *OutputStream) Play(streamPath string) (err error)
 - Close 用来关闭订阅者
 - Play 用来启动订阅行为，这个函数会阻塞当前协程。
 
+## 钩子
+
+```go
+//当发布者发布时
+type OnPublishHook []func(r *Room)
+//当订阅者订阅时
+type OnSubscribeHook []func(s *OutputStream)
+//当订阅者掉帧时
+type OnDropHook []func(s *OutputStream)
+//当采集者进行采集或者停止时
+type OnSummaryHook []func(bool)
+//当房间关闭时（主动退出或者发布者退出）
+type OnRoomClosedHook []func(*Room)
+```
+
+钩子都有一个方法AddHook用来添加钩子函数
+
 ## 编码格式
 
 引用路径
