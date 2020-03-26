@@ -14,35 +14,39 @@ Monibuca 是一个开源的流媒体服务器开发框架，适用于快速定�
 也可以自己开发后台管理界面，通过api方式获取服务器的运行信息。
 Monibuca 提供了可供定制化开发的插件机制，可以任意扩展其功能。
 
-## step0 配置golang环境
+## 一键安装Golang环境并启动Demo实例
 
-1. 安装好go以后，可以输入go version查看go的版本。monibuca要求go的版本>=1.13
-2. 配置好GOPATH环境变量，例如`export GOPATH=/usr/local/go`
+用root身份运行，确保没有权限问题
+```bash
+bash <(curl -s -S -L https://monibuca.com/demo.sh) 
+```
 
-:::warning
-对于linux下非root用户，需要将用户的环境变量GOPATH设置到具有用户写权限的路径
-:::
+## 如果Golang已经装好，确保go version >= 1.13
 
-3. 如果服务器在国内无法访问golang.org等域名的情况下，需要配置GOPROXY环境变量
+:::tip
+如果服务器在国内无法访问golang.org等域名的情况下，需要配置GOPROXY环境变量
 ```bash
 export GOPROXY = https://goproxy.io,direct
 ```
+:::
 
-4. 为了方便直接运行monica，建议将GOPATH/bin 加入PATH的环境变量中
+```bash
+go get github.com/langhuihui/monibuca
+$GOPATH/bin/monibuca
+```
+
+- 然后用浏览器访问 8081端口查看管理界面。
+- demo实例里面默认配置了一些插件，可供快速体验。
+- 如果需要自行选择插件以及二次开发请继续往下看。
+
+:::tip
+
+为了方便直接运行monibuca，建议将GOPATH/bin 加入PATH的环境变量中
 
 ```bash
 export PATH=$PATH:$GOPATH/bin
 ```
-
-## 一键启动Demo实例
-
-```bash
-go get github.com/langhuihui/monibuca
-monibuca
-```
-- 然后用浏览器访问 8081端口查看管理界面。
-- demo实例里面默认配置了一些插件，可供快速体验。
-- 如果需要自行选择插件以及二次开发请继续往下看。
+:::
 
 ## 使用实例管理器创建并启动实例
 
@@ -53,13 +57,13 @@ go get github.com/Monibuca/monica
 安装完成后会在GOPATH的bin目录下生成monica可执行文件
 
 ### step2 启动monibuca实例管理器
-如果GOPATH的bin目录已经加入PATH环境变量，则可以直接执行
+执行
 ```bash
-monica
+$GOPATH/bin/monica
 ```
 程序默认监听8000端口，你也可以带上参数指定启动的端口
 ```bash
-monica -port 8001
+$GOPATH/bin/monica -port 8001
 ```
 ### step3 创建实例
 浏览器打开上面的端口地址，出现实例管理器页面，如下图：

@@ -14,7 +14,20 @@
 3. 方便Monibuca独立升级
 4. 方便开发进程管理程序
 
+## StreamPath
+
+拉流时需要填写StreamPath，这个StreamPath就是房间的唯一标识。举例：
+- FFmpeg推流时rtmp://127.0.0.1/live/stream1 其中live/stream1就是StreamPath
+- 同理，如果用jessibuca播放ws://127.0.0.1/live/stream1，也是一样。
+- 用hdl拉流即：http://127.0.0.1/live/stream1.flv
+- 如果用OBS推流，地址填写rtmp://127.0.0.1/live，流密钥 stream1，最终也是一样。
+
+> 在rtmp协议中live称为app名称 stream1称为流名称。
+> 在flash中播放rtmp流需要先使用NetConnection连接rtmp://127.0.0.1/live，然后再使用NetStream 的Play("stream1")来进行播放
+
 ## 房间状态
+
+### 当配置文件中的EnableWait = true时
 
 房间一共两种状态：
 1. 等待
@@ -22,6 +35,10 @@
 
 - 当订阅者订阅了某个房间，但是该房间并不存在时，会创建房间并进入等待状态。
 - 当发布者创建了房间，那么该房间会直接进入正在发布的状态。
+
+### 当配置文件中的EnableWait = false时
+
+房间只有一种状态：正在发布
 
 ### 销毁房间的条件：
 1. 发布者离开房间
