@@ -75,8 +75,7 @@ https://cli.vuejs.org/zh/guide/build-targets.html#web-components-%E7%BB%84%E4%BB
 
 为了能正确的加载插件的UI组件，必须遵守如下规则：
 1. 创建一个vue单文件组件作为UI的入口，可以嵌套其他的vue组件调用
-2. 如果需要载入iview的css，需要在style标签内写入`@import url("/iview.css");`
-3. 必须导出为Web Component，名称必须为plugin-[组件名小写]
+2. 必须导出为Web Component，名称必须为plugin-[组件名小写]
 例如：下面的npm命令将index.vue导出名为plugin-jessica 的Web Component，导出的文件在npm项目下的ui目录。
 ```json
 "scripts": {

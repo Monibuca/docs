@@ -59,6 +59,40 @@ for _, v := range r.Subscribers {
 该核心逻辑位于monica/room.go中的Run函数内
 :::
 
+## 核心逻辑
+<graphviz :value='`digraph G {
+    "publisher"->"PushVideo()"
+    subgraph cluster_room{
+        label = "room"
+        "PushVideo()" -> VideoChan
+    }
+    subgraph cluster_sub1{
+        label = "subscriber1"
+        packageQueue1[label="packageQueue"]
+        sendVideo1[label="sendVideo()"]
+        SendHandler1[label="SendHandler()"]
+        sendVideo1->packageQueue1->SendHandler1
+    }
+    subgraph cluster_sub2{
+        label = "subscriber2"
+        packageQueue2[label="packageQueue"]
+        sendVideo2[label="sendVideo()"]
+        SendHandler2[label="SendHandler()"]
+        sendVideo2->packageQueue2->SendHandler2
+    }
+    subgraph cluster_sub3{
+        label = "subscriber3"
+        packageQueue3[label="packageQueue"]
+        sendVideo3[label="sendVideo()"]
+        SendHandler3[label="SendHandler()"]
+        sendVideo3->packageQueue3->SendHandler3
+    }
+    VideoChan -> sendVideo1
+    VideoChan -> sendVideo2
+    VideoChan -> sendVideo3
+}
+`'/>
+
 ## 如何实现高性能
 流媒体服务器对性能要求极为苛刻。因为流媒体服务器属于高速系统，会有并发的长连接请求，协议封包解包和音视频格式的编解码都消耗着CPU以及内存，如何尽可能的减少消耗是必须考虑的问题。
 
