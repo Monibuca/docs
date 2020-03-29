@@ -267,12 +267,152 @@ func (s *OutputStream) Play(streamPath string) (err error)
 - Close 用来关闭订阅者
 - Play 用来启动订阅行为，这个函数会阻塞当前协程。
 
+## 钩子
+
+```go
+//当发布者发布时
+type OnPublishHook []func(r *Room)
+//当订阅者订阅时
+type OnSubscribeHook []func(s *OutputStream)
+//当订阅者掉帧时
+type OnDropHook []func(s *OutputStream)
+//当采集者进行采集或者停止时
+type OnSummaryHook []func(bool)
+//当房间关闭时（主动退出或者发布者退出）
+type OnRoomClosedHook []func(*Room)
+```
+
+钩子都有一个方法AddHook用来添加钩子函数
+
 ## 编码格式
 
+引用路径
+```go
+import "github.com/Monibuca/engine/avformat"
+```
+
+### AVPacket
+
+```go
+type AVPacket struct {
+	Timestamp     uint32
+	Type          byte //8 audio,9 video
+	IsAACSequence bool
+	IsADTS        bool
+	// Video
+	VideoFrameType byte //4bit
+	IsAVCSequence  bool
+	Payload        []byte
+	RefCount       int //Payload的引用次数
+}
+func (av *AVPacket) IsKeyFrame() bool
+func NewAVPacket(avType byte) (p *AVPacket)
+func (av *AVPacket) Recycle() 
+func (av *AVPacket) ADTS2ASC() (tagPacket *AVPacket) 
+```
+这个是音视频数据的通用结构体
+- Timestamp 是发布者提供的时间戳
+- Type 代表音频还是视频
+- IsAACSequence 代表是否是AAC的Sequence头
+- IsADTS 代表AAC头是否使用ADTS格式
+- VideoFrameType 代表视频帧类型1为关键帧，2为普通帧
+- IsAVCSequence 代表H264的Sequence头
+- Payload 音频或者视频的裸数据
+- RefCount 代表引用计数，因为这个结构体对象需要提供给多个订阅者复用，需要计算是否需要回收。
+- IsKeyFrame 用来判断是否是关键帧
+- NewAVPacket 用来从对象池里面取出一个AVPacket并初始化
+- Recycle 回收这个AVPacket，实际上是RefCount-1，直到0才真正回收。
+- ADTS2ASC 将AAC的ADTS头转换成AudioSpecificConfig格式
+
+### SendPacket
+```go
+type SendPacket struct {
+	Timestamp uint32
+	Packet    *AVPacket
+}
+
+func (packet *SendPacket) Recycle() {
+	packet.Packet.Recycle()
+	SendPacketPool.Put(packet)
+}
+func NewSendPacket(p *AVPacket, timestamp uint32) (result *SendPacket) {
+	result = SendPacketPool.Get().(*SendPacket)
+	result.Packet = p
+	result.Timestamp = timestamp
+	return
+}
+```
+该结构体用于在不同的协议中传输使用，本质上就是复用了AVPacket，只是不同的订阅者的时间戳不同。所以需要增加一层时间戳。
 
 
 ## 工具类
 
 ### SSE
 
+```go
+type SSE struct {
+	http.ResponseWriter
+	context.Context
+}
+func NewSSE(w http.ResponseWriter, ctx context.Context) *SSE
+func (sse *SSE) WriteEvent(event string, data []byte) (err error)
+func (sse *SSE) WriteJSON(data interface{}) (err error)
+func (sse *SSE) WriteExec(cmd *exec.Cmd) error
+```
+用于方便的进行提供SSE服务。
+- NewSSE 从http的handler函数提供的参数创建SSE辅助对象。
+- WriteEvent 发送时间
+- WriteJSON 发送json对象
+- WriteExec 执行一个cmd，然后将输出结果推送的浏览器
+
+示例：
+```go
+func summary(w http.ResponseWriter, r *http.Request) {
+	sse := NewSSE(w, r.Context())
+	Summary.Add()
+	defer Summary.Done()
+	sse.WriteJSON(&Summary)
+	ticker := time.NewTicker(time.Second)
+	defer ticker.Stop()
+	for {
+		select {
+		case <-ticker.C:
+			if sse.WriteJSON(&Summary) != nil {
+				return
+			}
+		case <-r.Context().Done():
+			return
+		}
+	}
+}
+```
+
 ### CurrentDir
+
+```go
+func CurrentDir(path ...string) string {
+	_, currentFilePath, _, _ := runtime.Caller(1)
+	if len(path) == 0 {
+		return filepath.Dir(currentFilePath)
+	}
+	return filepath.Join(filepath.Dir(currentFilePath), filepath.Join(path...))
+}
+```
+用来获取当前go文件所在的磁盘目录
+
+示例：
+```go
+InstallPlugin(&PluginConfig{
+	Name:    "HLS",
+	Type:    PLUGIN_PUBLISHER | PLUGIN_HOOK,
+	UI:      CurrentDir("dashboard", "ui", "plugin-hls.min.js"),
+	Version: "1.0.5",
+	Config:  &config,
+	Run: func() {
+		//os.MkdirAll(config.Path, 0666)
+		if config.EnableWrite {
+			OnPublishHooks.AddHook(writeHLS)
+		}
+	},
+})
+```

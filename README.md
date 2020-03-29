@@ -14,11 +14,41 @@ Monibuca 是一个开源的流媒体服务器开发框架，适用于快速定�
 也可以自己开发后台管理界面，通过api方式获取服务器的运行信息。
 Monibuca 提供了可供定制化开发的插件机制，可以任意扩展其功能。
 
-## 使用实例管理器启动实例
+## 一键安装Golang环境并启动Demo实例
 
-### step0 配置golang环境
+用root身份运行，确保没有权限问题
+```bash
+bash <(curl -s -S -L https://monibuca.com/demo.sh) 
+```
 
-将GOPATH的bin目录加入环境变量PATH中，这样可以快速启动Monibuca实例管理器
+## 如果Golang已经装好，确保go version >= 1.13
+
+:::tip
+如果服务器在国内无法访问golang.org等域名的情况下，需要配置GOPROXY环境变量
+```bash
+export GOPROXY = https://goproxy.io,direct
+```
+:::
+
+```bash
+go get github.com/langhuihui/monibuca
+$GOPATH/bin/monibuca
+```
+
+- 然后用浏览器访问 8081端口查看管理界面。
+- demo实例里面默认配置了一些插件，可供快速体验。
+- 如果需要自行选择插件以及二次开发请继续往下看。
+
+:::tip
+
+为了方便直接运行monibuca，建议将GOPATH/bin 加入PATH的环境变量中
+
+```bash
+export PATH=$PATH:$GOPATH/bin
+```
+:::
+
+## 使用实例管理器创建并启动实例
 
 ### step1 安装monica
 ```bash
@@ -27,13 +57,13 @@ go get github.com/Monibuca/monica
 安装完成后会在GOPATH的bin目录下生成monica可执行文件
 
 ### step2 启动monibuca实例管理器
-如果GOPATH的bin目录已经加入PATH环境变量，则可以直接执行
+执行
 ```bash
-monica
+$GOPATH/bin/monica
 ```
 程序默认监听8000端口，你也可以带上参数指定启动的端口
 ```bash
-monica -port 8001
+$GOPATH/bin/monica -port 8001
 ```
 ### step3 创建实例
 浏览器打开上面的端口地址，出现实例管理器页面，如下图：
@@ -87,6 +117,7 @@ windows系统会弹出cmd窗口，linux系统会在后台运行实例。
 1. main.go
 2. config.toml
 3. restart.sh（windows下为restart.bat)
+4. fatal.log（启动后产生）
 
 ### main.go
 实例启动的主文件，初始化各类插件，然后调用配置文件启动引擎
@@ -142,3 +173,6 @@ Suffix = ["high","medium","low"]
 
 ### restart.sh
 该文件是一个用来重启实例的bash脚本，方便通过实例管理器重启，或者手工重启。
+
+### fatal.log
+这个文件在程序启动后创建，程序意外退出的话，可以查看该文件里的日志信息，程序再次启动会覆盖该文件。
