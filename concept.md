@@ -25,24 +25,24 @@
 > 在rtmp协议中live称为app名称 stream1称为流名称。
 > 在flash中播放rtmp流需要先使用NetConnection连接rtmp://127.0.0.1/live，然后再使用NetStream 的Play("stream1")来进行播放
 
-## 房间状态
+## Stream状态
 
-### 当配置文件中的EnableWait = true时
+### 当配置文件中的EnableWaitStream = true时
 
-房间一共两种状态：
+Stream一共两种状态：
 1. 等待
 2. 正在发布
 
-- 当订阅者订阅了某个房间，但是该房间并不存在时，会创建房间并进入等待状态。
-- 当发布者创建了房间，那么该房间会直接进入正在发布的状态。
+- 当订阅者订阅了某个Stream，但是该Stream并不存在时，会创建Stream并进入等待状态。
+- 当发布者创建了Stream，那么该Stream会直接进入正在发布的状态。
 
-### 当配置文件中的EnableWait = false时
+### 当配置文件中的EnableWaitStream = false时
 
-房间只有一种状态：正在发布
+Stream只有一种状态：正在发布
 
-### 销毁房间的条件：
-1. 发布者离开房间
-2. 房间处于等待状态，最后一个订阅者离开房间
+### 销毁Stream的条件：
+1. 发布者离开Stream
+2. Stream处于等待状态，最后一个订阅者离开Stream
 
 ## 推流
 

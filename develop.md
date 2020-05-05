@@ -5,7 +5,7 @@
 ## 插件的安装(注册)
 下面是内置插件jessica的源码，代表了典型的插件安装
 ```go
-package jessicaplugin
+package jessica
 
 import (
 	"io/ioutil"
@@ -13,29 +13,28 @@ import (
 	"mime"
 	"net/http"
 	"path"
-	"runtime"
+	"path/filepath"
 	"strings"
 
-	. "github.com/Monibuca/engine"
+	. "github.com/Monibuca/engine/v2"
+	. "github.com/logrusorgru/aurora"
 )
 
 var config = new(ListenerConfig)
 var publicPath string
 
 func init() {
-	_, currentFilePath, _, _ := runtime.Caller(0)
-	publicPath = path.Join(path.Dir(currentFilePath), "dashboard", "public")
-	InstallPlugin(&PluginConfig{
-		Name:    "Jessica",
-		Type:    PLUGIN_SUBSCRIBER,
-		Config:  config,
-		UI:      path.Join(path.Dir(currentFilePath), "dashboard", "ui", "plugin-jessica.min.js"),
-		Version: "1.0.0",
-		Run:     run,
-	})
+	plugin := &PluginConfig{
+		Name:   "Jessica",
+		Type:   PLUGIN_SUBSCRIBER,
+		Config: config,
+		Run:    run,
+	}
+	InstallPlugin(plugin)
+	publicPath = filepath.Join(plugin.Dir, "ui", "public")
 }
 func run() {
-	log.Printf("server Jessica start at %s", config.ListenAddr)
+	Print(Green("server Jessica start at"), BrightBlue(config.ListenAddr))
 	http.HandleFunc("/jessibuca/", jessibuca)
 	log.Fatal(http.ListenAndServe(config.ListenAddr, http.HandlerFunc(WsHandler)))
 }
@@ -44,7 +43,7 @@ func jessibuca(w http.ResponseWriter, r *http.Request) {
 	if mime := mime.TypeByExtension(path.Ext(filePath)); mime != "" {
 		w.Header().Set("Content-Type", mime)
 	}
-	if f, err := ioutil.ReadFile(publicPath + filePath); err == nil {
+	if f, err := ioutil.ReadFile(filepath.Join(publicPath, filePath)); err == nil {
 		if _, err = w.Write(f); err != nil {
 			w.WriteHeader(500)
 		}
@@ -52,6 +51,7 @@ func jessibuca(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(404)
 	}
 }
+
 
 ```
 
@@ -61,45 +61,112 @@ func jessibuca(w http.ResponseWriter, r *http.Request) {
 - 注册插件，是调用引擎提供的InstallPlugin函数，传入插件的关键信息。
 - 插件的名称Name必须是唯一的，只需要保证在项目中唯一即可。
 - 插件的Config属性是一个自定义的结构体，只需要保证配置文件的解析和这个结构体定义一致即可。
-- 插件的UI属性是该插件的界面部分，如何开发界面请参阅后面的文档。这个地方是传入UI的js文件的绝对路径。
 - 当主程序读取配置文件完成解析后，会调用各个插件的Run函数，上面代码中执行了一个http的端口监听
 - jessica插件的界面需要读取一些静态资源，所以利用了Gateway的http服务，我们注册了一个路由。所有插件都可以共用Gateway插件的http服务，但要注意的是路由不可以有冲突。当然插件也可以自己创建http服务，启用不同的端口号。
 
 ## 开发插件的UI界面
 
-插件的UI界面采用了模块化方式加载。即，所有的插件均为一个Web Component，Gateway插件提供后台界面的外壳，然后根据插件提供的组件进行加载显示。
+步骤：
+1. 创建ui目录用于存放ui的源码和编译出的文件
+2. 创建ui/src/App.vue作为UI界面的入口
+3. 编译为vue lib 名称必须为plugin-[组件名小写] 供gateway调用
 
-::: tip 参考
-https://cli.vuejs.org/zh/guide/build-targets.html#web-components-%E7%BB%84%E4%BB%B6
-:::
-
-为了能正确的加载插件的UI组件，必须遵守如下规则：
-1. 创建一个vue单文件组件作为UI的入口，可以嵌套其他的vue组件调用
-2. 必须导出为Web Component，名称必须为plugin-[组件名小写]
-例如：下面的npm命令将index.vue导出名为plugin-jessica 的Web Component，导出的文件在npm项目下的ui目录。
+例如：下面的npm命令将ui/src/App.vue导出名为plugin-jessica 的Vue lib，导出的文件在项目下的ui/dist目录。
 ```json
 "scripts": {
-    "build": "vue-cli-service build --dest ui --target wc --name plugin-jessica index.vue"
+    "build": "vue-cli-service build --target lib --name plugin-jessica"
 }
+```
+
+组件的Props中可以配置插件配置项用于接收插件的配置信息
+例如：
+```javascript
+props: {
+    ListenAddr: String
+}
+```
+
+Gateway插件中提供的公共组件均可以使用，例如stream-table，可供展示所有的流信息
+```html
+<stream-table>
+	<template v-slot="scope">
+		<m-button @click="preview(scope)">预览</m-button>
+	<template>
+</stream-table>
+```
+该组件有一个默认的作用域槽，可以用来扩展对每一个流的操作
+
+Gateway插件中提供的Vuex对象，所有插件均可访问
+```javascript
+export default new Vuex.Store({
+    state: {
+        plugins: [],
+        Address: location.hostname,
+        NetWork: [],
+        Streams: [],
+        Memory: {
+            Used: 0,
+            Usage: 0
+        },
+        CPUUsage: 0,
+        HardDisk: {
+            Used: 0,
+            Usage: 0
+        },
+        Children: {},
+        engineInfo: {},
+    },
+    mutations: {
+        update(state, payload) {
+            Object.assign(state, payload)
+        },
+    },
+    actions: {
+        fetchEngineInfo({ commit }) {
+            return window.ajax.getJSON(apiHost + "/api/sysInfo").then(engineInfo => commit("update", { engineInfo }))
+        },
+        fetchPlugins({ commit }) {
+            return window.ajax.getJSON(apiHost + "/api/plugins").then(plugins => {
+                plugins.sort((a, b) => a.Name > b.Name ? 1 : -1)
+                commit("update", { plugins })
+                return plugins
+            })
+        },
+        fetchSummary({ commit }) {
+            summaryES = new EventSource(apiHost + "/api/summary");
+            summaryES.onmessage = evt => {
+                if (!evt.data) return;
+                let summary = JSON.parse(evt.data);
+                summary.Address = location.hostname;
+                if (!summary.Streams) summary.Streams = [];
+                summary.Streams.sort((a, b) =>
+                    a.StreamPath > b.StreamPath ? 1 : -1
+                );
+                commit("update", summary)
+            };
+        },
+    },
+})
 ```
 
 ## 开发无UI的插件
 
-在注册插件的时候UI属性留空即可
+默认就是无UI的插件
 
 ## 开发订阅者插件
 所谓订阅者就是用来从流媒体服务器接收音视频流的程序，例如RTMP协议执行play命令后、http-flv请求响应程序、websocket响应程序。内置插件中录制flv程序也是一个特殊的订阅者。
 下面是http-flv插件的源码，供参考
 ```go
-package HDL
+package hdl
 
 import (
-	. "github.com/Monibuca/engine"
-	"github.com/Monibuca/engine/avformat"
-	"github.com/Monibuca/engine/pool"
 	"log"
 	"net/http"
 	"strings"
+
+	. "github.com/Monibuca/engine/v2"
+	"github.com/Monibuca/engine/v2/avformat"
+	. "github.com/logrusorgru/aurora"
 )
 
 var config = new(ListenerConfig)
@@ -109,13 +176,12 @@ func init() {
 		Name:   "HDL",
 		Type:   PLUGIN_SUBSCRIBER,
 		Config: config,
-		Version:"1.0.0",
 		Run:    run,
 	})
 }
 
 func run() {
-	log.Printf("HDL start at %s", config.ListenAddr)
+	Print(Green("HDL start at "), BrightBlue(config.ListenAddr))
 	log.Fatal(http.ListenAndServe(config.ListenAddr, http.HandlerFunc(HDLHandler)))
 }
 
@@ -129,28 +195,29 @@ func HDLHandler(w http.ResponseWriter, r *http.Request) {
 	if strings.HasSuffix(stringPath, ".flv") {
 		stringPath = strings.TrimRight(stringPath, ".flv")
 	}
-	if _, ok := AllRoom.Load(stringPath); ok {
+	if s := FindStream(stringPath); s != nil {
 		//atomic.AddInt32(&hdlId, 1)
 		w.Header().Set("Transfer-Encoding", "chunked")
 		w.Header().Set("Content-Type", "video/x-flv")
 		w.Write(avformat.FLVHeader)
-		p := OutputStream{
+		p := Subscriber{
 			Sign: sign,
-			SendHandler: func(packet *pool.SendPacket) error {
+			OnData: func(packet *avformat.SendPacket) error {
 				return avformat.WriteFLVTag(w, packet)
 			},
 			SubscriberInfo: SubscriberInfo{
 				ID: r.RemoteAddr, Type: "FLV",
 			},
 		}
-		p.Play(stringPath)
+		p.Subscribe(stringPath)
 	} else {
 		w.WriteHeader(404)
 	}
 }
+
 ```
-其中，核心逻辑就是创建OutputStream对象，每一个订阅者需要提供SendHandler函数，用来接收来自发布者广播出来的音视频数据。
-最后调用该对象的Play函数进行播放。请注意：Play函数会阻塞当前goroutine。
+其中，核心逻辑就是创建Subscriber对象，每一个订阅者需要提供OnData函数，用来接收来自发布者广播出来的音视频数据。
+最后调用该对象的Subscribe函数进行播放。请注意：Subscribe函数会阻塞当前goroutine。
 
 ## 开发发布者插件
 
@@ -158,16 +225,16 @@ func HDLHandler(w http.ResponseWriter, r *http.Request) {
 以此为例，我们需要提供一个结构体定义来表示特定的发布者：
 ```go
 type Receiver struct {
-	InputStream
+	Publisher
 	io.Reader
 	*bufio.Writer
 }
 ```
-其中InputStream 是固定的，必须包含，且必须以组合继承的方式定义。其余的成员则是任意的。
+其中Publisher 是固定的，必须包含，且必须以组合继承的方式定义。其余的成员则是任意的。
 发布者的发布动作需要特定条件的触发，例如在集群插件中，当本服务器有订阅者订阅了某个流，而该流并没有发布者的时候就会触发向源服务器拉流的函数：
 ```go
 func PullUpStream(streamPath string) {
-	addr, err := net.ResolveTCPAddr("tcp", config.Master)
+	addr, err := net.ResolveTCPAddr("tcp", config.OriginServer)
 	if MayBeError(err) {
 		return
 	}
@@ -177,10 +244,11 @@ func PullUpStream(streamPath string) {
 	}
 	brw := bufio.NewReadWriter(bufio.NewReader(conn), bufio.NewWriter(conn))
 	p := &Receiver{
-		Reader: conn,
+		Reader: brw.Reader,
 		Writer: brw.Writer,
 	}
-	if p.Publish(streamPath, p) {
+	if p.Publish(streamPath) {
+		p.Type = "Cluster"
 		p.WriteByte(MSG_SUBSCRIBE)
 		p.WriteString(streamPath)
 		p.WriteByte(0)
@@ -192,21 +260,15 @@ func PullUpStream(streamPath string) {
 		return
 	}
 	defer p.Cancel()
-	for {
-		cmd, err := brw.ReadByte()
-		if MayBeError(err) {
-			return
-		}
+	for cmd, err := brw.ReadByte(); !MayBeError(err); cmd, err = brw.ReadByte() {
 		switch cmd {
 		case MSG_AUDIO:
-			if audio, err := p.readAVPacket(avformat.FLV_TAG_TYPE_AUDIO); err == nil {
-				p.PushAudio(audio)
+			if t, payload, err := p.readAVPacket(avformat.FLV_TAG_TYPE_AUDIO); err == nil {
+				p.PushAudio(t, payload)
 			}
 		case MSG_VIDEO:
-			if video, err := p.readAVPacket(avformat.FLV_TAG_TYPE_VIDEO); err == nil && len(video.Payload) > 2 {
-				tmp := video.Payload[0]         // 第一个字节保存着视频的相关信息.
-				video.VideoFrameType = tmp >> 4 // 帧类型 4Bit, H264一般为1或者2
-				p.PushVideo(video)
+			if t, payload, err := p.readAVPacket(avformat.FLV_TAG_TYPE_VIDEO); err == nil && len(payload) > 2 {
+				p.PushVideo(t, payload)
 			}
 		case MSG_AUTH:
 			cmd, err = brw.ReadByte()
@@ -223,14 +285,17 @@ func PullUpStream(streamPath string) {
 					v.Cancel()
 				}
 			}
+		default:
+			log.Printf("unknown cmd:%v", cmd)
 		}
 	}
 }
 
+
 ```
 正在该函数中会向源服务器建立tcp连接，然后发送特定命令表示需要拉流，当我们接收到源服务器的数据的时候，就调用PushVideo和PushAudio函数来广播音视频。
 
-核心逻辑是调用InputStream的Publish以及PushVideo、PushAudio函数
+核心逻辑是调用Publisher的Publish以及PushVideo、PushAudio函数
 
 ## 开发钩子插件
 
@@ -239,7 +304,7 @@ func PullUpStream(streamPath string) {
 - 当发布者开始发布时 `OnPublishHooks.AddHook(onPublish)`
 例如：
 ```go
-func onPublish(r *Room) {
+func onPublish(r *Stream) {
 	for _, v := range r.Subscribers {
 		if err := CheckSign(v.Sign); err != nil {
 			v.Cancel()
@@ -251,7 +316,7 @@ func onPublish(r *Room) {
 - 当有订阅者订阅了某个流时，`OnSubscribeHooks.AddHook(onSubscribe)`
 例如：
 ```go
-func onSubscribe(s *OutputStream) {
+func onSubscribe(s *Subscriber) {
 	if s.Publisher == nil {
 		go PullUpStream(s.StreamPath)
 	}

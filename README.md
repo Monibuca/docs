@@ -125,12 +125,11 @@ windows系统会弹出cmd窗口，linux系统会在后台运行实例。
 package main
 
 import (
-	_ "github.com/Monibuca/clusterplugin"
-	. "github.com/Monibuca/engine"
-	_ "github.com/Monibuca/gatewayplugin"
-	_ "github.com/Monibuca/jessicaplugin"
-	_ "github.com/Monibuca/logrotateplugin"
-	_ "github.com/Monibuca/rtmpplugin"
+	. "github.com/Monibuca/engine/v2"
+	_ "github.com/Monibuca/plugin-gateway"
+	_ "github.com/Monibuca/plugin-jessica"
+	_ "github.com/Monibuca/plugin-logrotate"
+	_ "github.com/Monibuca/plugin-rtmp"
 )
 
 func main() {
@@ -150,6 +149,9 @@ func main() {
 
 如果注释掉部分插件的配置，那么该插件就不会启用，典型的配置如下：
 ```toml
+[Monibuca]
+EnableWaitStream = true
+RingSize = 10
 [HDL]
 ListenAddr = ":2020"
 [Jessica]
@@ -158,18 +160,12 @@ ListenAddr = ":8080"
 ListenAddr = ":1935"
 [GateWay]
 ListenAddr = ":81"
-#[Cluster]
-#Master = "localhost:2019"
-#ListenAddr = ":2019"
-#
-#[Auth]
-#Key="www.monibuca.com"
-#[RecordFlv]
-#Path="./resouce"
-[QoS]
-Suffix = ["high","medium","low"]
 ```
 具体配置的含义，可以参考每个插件的说明
+
+::: tip
+Monibuca配置项为引擎的配置，RingSize是指缓冲环的大小，10代表2的10次方即1024
+:::
 
 ### restart.sh
 该文件是一个用来重启实例的bash脚本，方便通过实例管理器重启，或者手工重启。
