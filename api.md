@@ -80,10 +80,7 @@ var Plugins = make(map[string]*PluginConfig)
 ```go
 // AddWriter 添加日志输出端
 func AddWriter(wn io.Writer) {
-	log.SetOutput(&LogWriter{
-		Writer: wn,
-		origin: log.Writer(),
-	})
+	logWriter.Store(wn, wn)
 }
 ```
 该函数可以给日志输出增加输出渠道，有时候我们需要跟踪日志，就可以用该方法。
