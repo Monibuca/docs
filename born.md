@@ -12,7 +12,7 @@ Monibuca的诞生可以追溯到2006年……
 
 ## H5播放器诞生
 
-其实一切的起因都来自这款播放器，虽然我至今尚为开源，但一直是我研究和开发流媒体服务器的原动力。最早是发现了一个开源项目https://github.com/mbebenita/Broadway，这个项目是将H264的解码程序通过emscripten编译成了js，在浏览器端解码播放H264视频。然后我就在这个基础上实现了rtmp协议的js编译（https://github.com/langhuihui/H5RtmpClient），然后通过websocket传输。后来想到，没有必要去实现rtmp，可以在websocket中传输裸数据即可，这样可以节省带宽，也可以减轻浏览器端的解码压力。随后开始陆续将音频解码程序集成进播放器中，最后将h265的解码程序也集成进去了。有两款h265的解码程序，分别是lib265和libhevc。
+其实一切的起因都来自这款播放器，虽然我至今尚为开源，但一直是我研究和开发流媒体服务器的原动力。最早是发现了一个开源项目https://github.com/mbebenita/Broadway，这个项目是将H264的解码程序通过emscripten编译成了js，在浏览器端解码播放H264视频。然后我就在这个基础上实现了rtmp协议的js编译，然后通过websocket传输。后来想到，没有必要去实现rtmp，可以在websocket中传输裸数据即可，这样可以节省带宽，也可以减轻浏览器端的解码压力。随后开始陆续将音频解码程序集成进播放器中，最后将h265的解码程序也集成进去了。有两款h265的解码程序，分别是lib265和libhevc。现已开源（https://github.com/langhuihui/jessibuca）
 
 ## 照猫画虎的csharprtmp
 

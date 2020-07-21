@@ -16,7 +16,7 @@ A: 首先安装Monibuca，具体可以查看文档。然后打开实例管理器
 A：Monibuca是基于Golang开发，支持跨平台部署。Monibuca可以用Jessibuca播放器在微信、手机浏览器里面播放视频。也可以通过其他SDK播放RTMP流、其他协议的流。只需要相应的插件支持即可。
 
 ## Q: Jessibuca是什么？
-A: Jessibuca是一款使用Emscripten编译的纯H5播放器，支持H264、H265格式的直播流，尚为开源，有相关需求可以咨询本人。
+A: Jessibuca是一款使用Emscripten编译的纯H5播放器，支持H264、H265格式的直播流，[已开源]（http://jessibuca.monibuca.com）
 
 ## Q: Monibuca的名称有什么特殊含义吗？
-A: 这个单词来源于Monica（莫妮卡）是个人名，在项目里面也存在这个文件夹。没有特别含义，为了解决起名的难题，使用了三个名称分别是Monica、Jessica、Rebecca用来代表服务器、播放器、推流器。由于莫妮卡、杰西卡、瑞贝卡，都带卡字，对直播来说寓意不好，所以改为莫妮不卡（Monibuca）、杰西不卡（Jessibuca）、瑞贝不卡（Rebebuca）。其中推流器Rebebuca目前尚为公布，是改造了的OBS，可用于推流H265
+A: 这个单词来源于Monica（莫妮卡）是个人名，在项目里面也存在这个文件夹。没有特别含义，为了解决起名的难题，使用了三个名称分别是Monica、Jessica、Rebecca用来代表服务器、播放器、推流器。由于莫妮卡、杰西卡、瑞贝卡，都带卡字，对直播来说寓意不好，所以改为莫妮不卡（Monibuca）、杰西不卡（[Jessibuca]（http://jessibuca.monibuca.com））、瑞贝不卡（Rebebuca）。其中推流器Rebebuca目前尚为公布，是改造了的OBS，可用于推流H265
