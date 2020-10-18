@@ -17,8 +17,14 @@ module.exports = {
             ['/history', '更新日志'],
             ['/api', 'API'],
             ['/reference', '参考文献'],
-        ]
+        ],
+        lastUpdated: 'Last Updated'
     },
     title: 'Monibuca',
-    base: '/'
+    base: '/',
+    plugins: [
+        '@vuepress/back-to-top',
+        '@vuepress/active-header-links',
+        'vuepress-plugin-code-copy'
+    ]
 }
