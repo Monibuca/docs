@@ -22,6 +22,9 @@ module.exports = {
     },
     title: 'Monibuca',
     base: '/',
+    head: [
+        ['link', { rel: 'icon', href: '/favicon.ico' }]
+    ],
     plugins: [
         '@vuepress/back-to-top',
         '@vuepress/active-header-links',
