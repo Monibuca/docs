@@ -9,14 +9,14 @@
 [https://monibuca.com](https://monibuca.com)
 
 ## 介绍
-**Monibuca** 是一个开源的流媒体服务器开发框架，适用于快速定制化开发流媒体服务器，可以对接CDN厂商，作为回源服务器，也可以自己搭建集群部署环境。
-丰富的内置插件提供了流媒体服务器的常见功能，例如 rtmp server、http-flv、视频录制、QoS等。除此以外还内置了后台web界面，方便观察服务器运行的状态。
-也可以自己开发后台管理界面，通过api方式获取服务器的运行信息。
+**Monibuca** 是一个开源的流媒体服务器开发框架，适用于快速定制化开发流媒体服务器，可以对接 `CDN` 厂商，作为回源服务器，也可以自己搭建集群部署环境。
+丰富的内置插件提供了流媒体服务器的常见功能，例如 `rtmp server` 、 `http-flv` 、视频录制、 `QoS` 等。除此以外还内置了后台 `web` 界面，方便观察服务器运行的状态。
+也可以自己开发后台管理界面，通过 `api` 方式获取服务器的运行信息。
 **Monibuca** 提供了可供定制化开发的插件机制，可以任意扩展其功能。
 
-## 安装 和启动 monica
+## 安装和启动 monica
 
-执行下面的命令即可（mac或者linux系统请以 root 身份运行）
+执行下面的命令即可（ `mac` 或者 `linux` 系统请以 `root` 身份运行）
 
 ```sh
 npm i -g @langhuihui/monica
@@ -24,18 +24,18 @@ monica
 ```
 
 :::tip
-**提示 npm 命令需要安装好nodejs：**<br>
+**npm 命令需要安装好nodejs：**<br>
 进入[官网](https://nodejs.org/en/ )下载和安装即可
 
-**mac电脑如何进入 root 身份：**<br>
-[https://www.jianshu.com/p/f5e09261a064](https://www.jianshu.com/p/f5e09261a064) ，按照链接教程设置好后，在终端执行 su root 然后再执行 monica 命令 启动实例管理器
+**mac 电脑如何进入 root 身份：**<br>
+[https://www.jianshu.com/p/f5e09261a064](https://www.jianshu.com/p/f5e09261a064) ，按照链接教程设置好后，在终端执行 `su root` 然后再执行 `monica` 命令 启动实例管理器
 :::
 
 启动后，打开 [http://localhost:3000](http://localhost:3000) 会看到下面的界面
 
 ![r1](./images/r1.gif)
 
-这就是创建实例管理器的欢迎页面，它会帮助你检查你本地的 `go` 环境是否正确配置。
+这就是 **Monibuca** 实例管理器实例管理器的欢迎页面，它会帮助你，检查你本地的 `go` 环境是否正确配置。
 
 **如果没有正确配置 `go` 环境，请先配置好 `go` 环境，在点击下一步进行实例创建和管理。如果配置了 `go` 环境，请确保 `go version >= 1.13` 然后再点击下一步。**
 
@@ -62,7 +62,6 @@ go env -w GOPROXY="https://goproxy.io,direct"
 ![创建实例界面](./images/r3.png)
 
 图中的各个模块已经用箭头加文字进行了说明。这里我们来进行一次实例创建。大家请往下看：
-
 
 ### step2-1 定目录
 
@@ -137,9 +136,7 @@ go env -w GOPROXY="https://goproxy.io,direct"
 
 从上面动图可以得知，我们已经成功创建实例。至此，创建实例的整个过程已经阐述完了。下面我们将进入实例列表页面对实例进行各种操作。
 
-
 ## 实例管理
-
 
 成功创建实例后，点击 **进入实例列表页面** 按钮进入实例列表页面，如下图所示：
 
@@ -158,7 +155,6 @@ go env -w GOPROXY="https://goproxy.io,direct"
 ![实例管理](./images/r14.png)
 
 我们可以在此弹窗里面进行相关配置的修改，修改完后，点击 `OK` 即可完成配置修改。
-
 
 ### 实例依赖更新
 
@@ -245,14 +241,13 @@ go env -w GOPROXY="https://goproxy.io,direct"
 
 主要构成部分已经介绍完了，下面我们举个例子来实践一下操作面板。
 
-
 ### 操作举例
 
 使用 `ffmpeg` 往 该 **Monibuca** 实例上推流。
 
 #### step1 下载 `ffmpeg` 
 
-mac 和 windows 自行搜索下载
+`mac` 和 `windows` 自行搜索下载
 
 #### step2 推流
 
