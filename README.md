@@ -40,21 +40,10 @@ monica
 
 **如果没有正确配置 `go` 环境，请先配置好 `go` 环境，在点击下一步进行实例创建和管理。如果配置了 `go` 环境，请确保 `go version >= 1.13` 然后再点击下一步。**
 
-:::tip
-**mac 电脑 go 环境配置：**<br>
-直接用 root 身份运行下面命令，会自动帮你配置好环境
-```bash
-bash <(curl -s -S -L https://monibuca.com/demo.sh) 
-```
-
-**windows 电脑 go 环境配置：**<br>
-自行谷歌搜索
-:::
-
 ## go 代理设置
 如果服务器在国内无法访问 `golang.org` 等域名的情况下，需要配置 `GOPROXY` 环境变量
 ```bash
-export GOPROXY = https://goproxy.io,direct
+go env -w GOPROXY="https://goproxy.io,direct"
 ```
 
 ## 实例创建
