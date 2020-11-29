@@ -16,7 +16,7 @@
 
 ## 安装 和启动 monica
 
-以 root 身份安装下面的命令
+执行下面的命令即可（mac或者linux系统请以 root 身份运行）
 
 ```sh
 npm i -g @langhuihui/monica
@@ -24,12 +24,11 @@ monica
 ```
 
 :::tip
-**提示 npm 不是命令：**<br>
-1、需要安装 nodejs ，进入[官网](https://nodejs.org/en/ )下载和安装即可
+**提示 npm 命令需要安装好nodejs：**<br>
+进入[官网](https://nodejs.org/en/ )下载和安装即可
 
-**如何进入 root 身份：**<br>
-1、window电脑: 自行搜索 <br>
-2、mac电脑: [https://www.jianshu.com/p/f5e09261a064](https://www.jianshu.com/p/f5e09261a064) ，按照链接教程设置好后，在终端执行 su root 然后再执行 monica 命令 启动实例管理器
+**mac电脑如何进入 root 身份：**<br>
+[https://www.jianshu.com/p/f5e09261a064](https://www.jianshu.com/p/f5e09261a064) ，按照链接教程设置好后，在终端执行 su root 然后再执行 monica 命令 启动实例管理器
 :::
 
 启动后，打开 [http://localhost:3000](http://localhost:3000) 会看到下面的界面
@@ -40,21 +39,10 @@ monica
 
 **如果没有正确配置 `go` 环境，请先配置好 `go` 环境，在点击下一步进行实例创建和管理。如果配置了 `go` 环境，请确保 `go version >= 1.13` 然后再点击下一步。**
 
-:::tip
-**mac 电脑 go 环境配置：**<br>
-直接用 root 身份运行下面命令，会自动帮你配置好环境
-```bash
-bash <(curl -s -S -L https://monibuca.com/demo.sh) 
-```
-
-**windows 电脑 go 环境配置：**<br>
-自行谷歌搜索
-:::
-
 ## go 代理设置
 如果服务器在国内无法访问 `golang.org` 等域名的情况下，需要配置 `GOPROXY` 环境变量
 ```bash
-export GOPROXY = https://goproxy.io,direct
+go env -w GOPROXY="https://goproxy.io,direct"
 ```
 
 ## 实例创建
