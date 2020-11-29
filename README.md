@@ -16,7 +16,7 @@
 
 ## 安装 和启动 monica
 
-以 root 身份安装下面的命令
+执行下面的命令即可（mac或者linux系统请以 root 身份运行）
 
 ```sh
 npm i -g @langhuihui/monica
@@ -24,12 +24,11 @@ monica
 ```
 
 :::tip
-**提示 npm 不是命令：**<br>
-1、需要安装 nodejs ，进入[官网](https://nodejs.org/en/ )下载和安装即可
+**提示 npm 命令需要安装好nodejs：**<br>
+进入[官网](https://nodejs.org/en/ )下载和安装即可
 
-**如何进入 root 身份：**<br>
-1、window电脑: 自行搜索 <br>
-2、mac电脑: [https://www.jianshu.com/p/f5e09261a064](https://www.jianshu.com/p/f5e09261a064) ，按照链接教程设置好后，在终端执行 su root 然后再执行 monica 命令 启动实例管理器
+**mac电脑如何进入 root 身份：**<br>
+[https://www.jianshu.com/p/f5e09261a064](https://www.jianshu.com/p/f5e09261a064) ，按照链接教程设置好后，在终端执行 su root 然后再执行 monica 命令 启动实例管理器
 :::
 
 启动后，打开 [http://localhost:3000](http://localhost:3000) 会看到下面的界面
