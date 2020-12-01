@@ -20,14 +20,14 @@ type PluginConfig struct {
 	HotConfig map[string]func(interface{}) //热修改配置
 }
  ```
-该结构体用于作为插件启动时传入引擎的参数，见InstallPlugin函数。
-- Name 是插件在安装时的唯一标识，建议使用首字母大写的英文单词或者缩写表示。
-- Type 插件类型，见插件类型条目
-- Config 这个是插件使用的配置信息，是一个自定义结构体对象，插件配置读取后，将会通过反序列化构造出自定义的结构体对象。
-- UIDir 指示插件的界面资源的绝对路径，默认值是插件目录下的ui/dist，如果该插件没有UI界面，则不需要设置该值。
-- Dir 是指插件安装后的绝对路径，由引擎自动获取，无需配置
-- Run 是一个函数，在插件配置解析完成后，会调用该函数，也可以不设置。如果在配置文件中找不到对应的插件配置，则不会调用该函数。
-- HotConfig 是一个map，键为需要热更新的配置属性，值为一个函数，用于接收新的配置值。
+该结构体用于作为插件启动时传入引擎的参数，见 `InstallPlugin` 函数。
+- **Name** 是插件在安装时的唯一标识，建议使用首字母大写的英文单词或者缩写表示。
+- **Type** 插件类型，见插件类型条目
+- **Config** 这个是插件使用的配置信息，是一个自定义结构体对象，插件配置读取后，将会通过反序列化构造出自定义的结构体对象。
+- **UIDir** 指示插件的界面资源的绝对路径，默认值是插件目录下的 `ui/dist` ，如果该插件没有 `UI` 界面，则不需要设置该值。
+- **Dir** 是指插件安装后的绝对路径，由引擎自动获取，无需配置
+- **Run** 是一个函数，在插件配置解析完成后，会调用该函数，也可以不设置。如果在配置文件中找不到对应的插件配置，则不会调用该函数。
+- **HotConfig** 是一个 `map` ，键为需要热更新的配置属性，值为一个函数，用于接收新的配置值。
 
 ### InstallPlugin
 
@@ -51,7 +51,7 @@ func init() {
 	})
 }
 ```
-一般我们会在插件的init函数中调用该函数，以在第一时间启动插件。在调用过引擎的Run函数后，再安装插件就会错过插件启动的时机。
+一般我们会在插件的 `init` 函数中调用该函数，以在第一时间启动插件。在调用过引擎的 `Run` 函数后，再安装插件就会错过插件启动的时机。
 
 ### 插件类型
 
@@ -84,7 +84,7 @@ func AddWriter(wn io.Writer) {
 }
 ```
 该函数可以给日志输出增加输出渠道，有时候我们需要跟踪日志，就可以用该方法。
-如果想要删除添加的输出渠道，只需要让你的输出渠道调用Write返回错误即可。
+如果想要删除添加的输出渠道，只需要让你的输出渠道调用 `Write` 返回错误即可。
 
 ## 核心定义
 
@@ -116,10 +116,10 @@ type MyPublisher struct{
 	Publisher
 }
 ```
-由于Publisher也组合继承了Stream结构，所以也将可以直接调用Stream的所有方法。
-- Close函数，显式关闭房间，实际上是调用了Stream的Cancel函数
-- Running函数，用来检查发布者是否正在发布。
-- Publish函数，用来启动发布操作，传入流路径，和发布者本身
+由于 `Publisher` 也组合继承了 `Stream` 结构，所以也将可以直接调用 `Stream` 的所有方法。
+- **Close** 函数，显式关闭房间，实际上是调用了 `Stream` 的 `Cancel` 函数
+- **Running** 函数，用来检查发布者是否正在发布。
+- **Publish** 函数，用来启动发布操作，传入流路径，和发布者本身
 
 ```go
 // HLS 发布者
@@ -130,7 +130,7 @@ type HLS struct {
 	SaveContext context.Context //用来保存ts文件到服务器
 }
 ```
-在HLS的定义中，组合继承了TS，在发布HLS的时候，也需要调用TS的Publish函数，以启动相应的逻辑。
+在HLS的定义中，组合继承了 `TS` ，在发布 `HLS` 的时候，也需要调用 `TS` 的 `Publish` 函数，以启动相应的逻辑。
 ```go
 func (p *HLS) Publish(streamName string) (result bool) {
 	if result = p.TS.Publish(streamName); result {
@@ -171,12 +171,12 @@ type Stream struct {
 func (r *Stream) PushAudio(timestamp uint32, payload []byte)
 func (r *Stream) PushVideo(timestamp uint32, payload []byte)
 ```
-- Stream结构体可以用来调用的函数包括：PushAudio、PushVideo，用来把发布者的数据转发到订阅者。
-- 调用Stream的Cancel函数可以强制关闭房间。
-- Stream的Publisher属性如果nil，表示房间没有发布者，处于等待状态
-- 不能直接遍历Subscribers，可能会引起并发冲突。操作Subscribers必须给Stream发送指令。
+- `Stream` 结构体可以用来调用的函数包括：`PushAudio` 、 `PushVideo` ，用来把发布者的数据转发到订阅者。
+- 调用 `Stream` 的 `Cancel` 函数可以强制关闭房间。
+- `Stream` 的 `Publisher` 属性如果 `nil` ，表示房间没有发布者，处于等待状态
+- 不能直接遍历 `Subscribers` ，可能会引起并发冲突。操作 `Subscribers` 必须给 `Stream` 发送指令。
 
-目前有三种指令，可以传递给Control 通道
+目前有三种指令，可以传递给 `Control` 通道
 ```go
 // UnSubscribeCmd 取消订阅命令
 type UnSubscribeCmd struct {
@@ -223,11 +223,11 @@ func (s *Subscriber) Close() {
 //Subscribe 开始订阅
 func (s *Subscriber) Subscribe(streamPath string) (err error)
 ```
-订阅者结构体，订阅者不同于发布者，不需要额外定义订阅者结构体去组合继承Subscriber。只需要直接使用Subscriber对象即可。
-如何实现自定义输出？就是给Subscriber设置OnData函数。
-- IsClosed 用来判断订阅者是否已关闭
-- Close 用来关闭订阅者
-- Subscribe 用来启动订阅行为，这个函数会阻塞当前协程。
+订阅者结构体，订阅者不同于发布者，不需要额外定义订阅者结构体去组合继承 `Subscriber` 。只需要直接使用 `Subscriber` 对象即可。
+如何实现自定义输出？就是给 `Subscriber` 设置 `OnData` 函数。
+- `IsClosed` 用来判断订阅者是否已关闭
+- `Close` 用来关闭订阅者
+- `Subscribe` 用来启动订阅行为，这个函数会阻塞当前协程。
 
 ## 钩子
 
@@ -244,7 +244,7 @@ type OnSummaryHook []func(bool)
 type OnRoomClosedHook []func(*Room)
 ```
 
-钩子都有一个方法AddHook用来添加钩子函数
+钩子都有一个方法 `AddHook` 用来添加钩子函数
 
 ## 编码格式
 
@@ -297,7 +297,7 @@ func NewSendPacket(p *AVPacket, timestamp uint32) (result *SendPacket) {
 	return
 }
 ```
-该结构体用于在不同的协议中传输使用，本质上就是复用了AVPacket，只是不同的订阅者的时间戳不同。所以需要增加一层时间戳。
+该结构体用于在不同的协议中传输使用，本质上就是复用了 `AVPacket` ，只是不同的订阅者的时间戳不同。所以需要增加一层时间戳。
 
 
 ## 工具类
