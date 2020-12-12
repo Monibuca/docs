@@ -28,7 +28,7 @@ monica
 进入[官网](https://nodejs.org/en/ )下载和安装即可
 
 **npm i -g @langhuihui/monica 出现 fetchMetadata: sill fetchPackageMetaData error for ..**<br>
-执行 `npm config set registry https://registry.npm.taobao.org` 更换成淘宝的源
+解决方法：执行 `npm config set registry https://registry.npm.taobao.org` 更换成淘宝的源
 
 
 **mac 电脑如何进入 root 身份：**<br>
