@@ -10,5 +10,8 @@
   },
   "devDependencies": {
     "vitepress": "^0.15.5"
+  },
+  "dependencies": {
+    "quick-plugin-md": "^0.1.2"
   }
 }

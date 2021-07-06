@@ -61,6 +61,26 @@ module.exports = {
                 // { text: "工具包", children: [] }
             ], '/': getGuideSidebar()
         }
+    },
+    markdown: {
+        config: md => {
+            // use more markdown-it plugins! quick-plugin-md/dist/plugin/mermaid.js
+             md.use(require('quick-plugin-md/language/'),{
+          // 无需标签根据第一行代码自动转为图形组件
+          // tags: ['gitGraph', 'classDiagram', 'sequenceDiagram', 'gantt'],
+          // /** 默认标签*/
+          // default: 'mermaid',
+          // // 输出日志
+          // log: true,
+          // // 自定义markdown标签对应转换的模板组件名
+          // template: {
+          //   // mermaid 标签转为 组件定义
+          //   // mermaid: '<mermaid code="{code}"></mermaid>',
+          //   mermaid: '<mermaid>{code}</mermaid>',
+          //   pie: '<PieCode>{code}</PieCode>',
+          // },
+             });
+          },
     }
 }
 function getGuideSidebar() {
