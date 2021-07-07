@@ -15,5 +15,58 @@ Monibuca 专为二次开发而设计，因此独创的插件机制极具扩展�
 <<< @/code/go.mod
 
 ## 开发自定义插件
+### 插件的定义
+所谓的插件，没有什么固定的规则，只需要完成安装操作即可。**插件可以实现任意的功能扩展，最常见的是实现某种传输协议用来推流或者拉流。**
+### 插件的安装(注册)
+下面是内置插件 `jessica` 的源码，代表了典型的插件安装。
+```go
+package jessica
+
+import (
+	"net/http"
+
+	. "github.com/Monibuca/engine/v3"
+	"github.com/Monibuca/utils/v3"
+	. "github.com/logrusorgru/aurora"
+)
+
+var config struct {
+	ListenAddr    string
+	CertFile      string
+	KeyFile       string
+	ListenAddrTLS string
+}
+
+func init() {
+	plugin := &PluginConfig{
+		Name:   "Jessica",
+		Config: &config,
+		Run:    run,
+	}
+	InstallPlugin(plugin)
+}
+func run() {
+	if config.ListenAddr != "" || config.ListenAddrTLS != "" {
+		utils.Print(Green("Jessica start at"), BrightBlue(config.ListenAddr), BrightBlue(config.ListenAddrTLS))
+		utils.ListenAddrs(config.ListenAddr, config.ListenAddrTLS, config.CertFile, config.KeyFile, http.HandlerFunc(WsHandler))
+	} else {
+		utils.Print(Green("Jessica start reuse gateway port"))
+		http.HandleFunc("/jessica/", WsHandler)
+	}
+}
+```
+
+### 源码说明
+
+- `init` 会在 `go` 项目启动最开始的时候执行，我们需要在引擎 `Run` 之前注册我们的插件。
+- 注册插件，是调用引擎提供的 `InstallPlugin` 函数，传入插件的关键信息。
+- 插件的名称 `Name` 必须是唯一的，只需要保证在项目中唯一即可。
+- 插件的 `Config` 属性是一个自定义的结构体，只需要保证配置文件的解析和这个结构体定义一致即可。
+- 当主程序读取配置文件完成解析后，会调用各个插件的Run函数，上面代码中执行了一个 `http` 的端口监听
+- 所有插件都可以共用 `Gateway` 插件的 `http` 服务，但要注意的是路由不可以有冲突。当然插件也可以自己创建 `http` 服务，启用不同的端口号。
+
+### 开发视频发布或者订阅
+
+请参考API一章
 
 ## 开发UI界面
