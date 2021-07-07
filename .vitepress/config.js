@@ -1,7 +1,12 @@
 module.exports = {
-    title: "Monibuca V3文档",
-    description: 'Monibuca V3文档',
+    title: "m7s 文档",
+    description: 'm7s(Monibuca V3)文档',
     themeConfig: {
+        repo: 'langhuihui/monibuca',
+        algolia: {
+            apiKey: 'ef7719844e5225deb8417c34f2445be3',
+            indexName: 'monibuca'
+          },
         nav: [
             { text: '引导', link: '/', activeMatch: '^/$|^/guide/' },
             {
@@ -83,9 +88,17 @@ function getGuideSidebar() {
                 { text: '部署', link: '/guide/deploy' }
             ]
         },{
-            text: '官方插件', link: '/plugins/basic'
+            text: '官方插件', chidlren: [{
+                text:"简介",link: '/plugins/basic'
+            }, {
+                text:"rtmp",link:'/plugins/rtmp'
+            }]
         },{
-            text: 'API', link: '/api/basic'
+            text: 'API', children: [{
+                text:"核心定义",link: '/api/basic'
+            }, {
+                text:"接口定义",link:'/api/http'
+            }]
         },{
             text: "二次开发", children: [{
                 text: "基本概念",

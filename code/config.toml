@@ -73,8 +73,12 @@ StreamPath = "live/rtsp"
 # 端口范围不配置的话是自动分配
 # PortMin = 30000
 # PortMax = 40000
+# 如果需要公网访问，需要配置公网IP
+PublicIP = ["127.0.0.1"]
 [GB28181]
 Serial = "34020000002000000001"
 Realm = "3402000000"
 Expires = 3600
 ListenAddr = "192.168.1.120:5060"
+AutoUnPublish = true 
+AutoInvite = false
