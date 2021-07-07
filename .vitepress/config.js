@@ -88,7 +88,7 @@ function getGuideSidebar() {
                 { text: '部署', link: '/guide/deploy' }
             ]
         },{
-            text: '官方插件', chidlren: [{
+            text: '官方插件', children: [{
                 text:"简介",link: '/plugins/basic'
             }, {
                 text:"rtmp",link:'/plugins/rtmp'
