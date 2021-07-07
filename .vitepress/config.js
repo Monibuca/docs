@@ -90,9 +90,17 @@ function getGuideSidebar() {
         },{
             text: '官方插件', children: [{
                 text:"简介",link: '/plugins/basic'
-            }, {
+            },
+            {
+                text:"gateway",link:'/plugins/gateway'
+            },
+            {
                 text:"rtmp",link:'/plugins/rtmp'
-            }]
+            },
+            {
+                text:"rtsp",link:'/plugins/rtsp'
+            }
+            ]
         },{
             text: 'API', children: [{
                 text:"核心定义",link: '/api/basic'
