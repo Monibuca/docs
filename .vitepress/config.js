@@ -11,12 +11,12 @@ module.exports = {
             },
             {
                 text: '插件',
-                link: '/plugins',
+                link: '/plugins/basic',
                 activeMatch: '^/plugins/'
             },
             {
                 text: 'API',
-                link: '/api',
+                link: '/api/basic',
                 activeMatch: '^/api/'
             },
             {
@@ -27,39 +27,28 @@ module.exports = {
         ],
 
         sidebar: {
-            '/guide/': getGuideSidebar(),
-            '/config': [{
-                text: '配置', link: '/config'
-            }],
-            "/principle/": [
-                {
-                    text: "二次开发", children: [{
-                        text: "基本概念",
-                        link: "/principle/basic"
-                    }, {
-                        text: "架构设计",
-                        link: "/principle/architecture"
-                    }]
-                },
-                {
-                    text: "引擎", children: [{
-                        text: "插件机制", link: "/"
-                    }, {
-                        text: "流管理", link: "/"
-                    }, {
-                        text: "环形缓冲", link: "/"
-                    }, {
-                        text: "媒体轨道", link: "/"
-                    }]
-                },
-                // { text: "架构", children: [] },
-                // {
-                //     text: "引擎", children: [
-
-                //     ]
-                // },
-                // { text: "工具包", children: [] }
-            ], '/': getGuideSidebar()
+            // '/guide/': getGuideSidebar(),
+            // '/config': [{
+            //     text: '配置', link: '/config'
+            // }],
+            // '/plugins/': [{
+            //     text: '官方插件', link: '/plugins/basic'
+            // }],
+            // '/api/': [{
+            //     text: 'API', link: '/api/basic'
+            // }],
+            // "/principle/": [
+            //     {
+            //         text: "二次开发", children: [{
+            //             text: "基本概念",
+            //             link: "/principle/basic"
+            //         }, {
+            //             text: "架构设计",
+            //             link: "/principle/architecture"
+            //         }]
+            //     },
+            // ],
+            '/': getGuideSidebar()
         }
     },
     markdown: {
@@ -93,6 +82,18 @@ function getGuideSidebar() {
                 { text: '配置', link: '/config' },
                 { text: '部署', link: '/guide/deploy' }
             ]
+        },{
+            text: '官方插件', link: '/plugins/basic'
+        },{
+            text: 'API', link: '/api/basic'
+        },{
+            text: "二次开发", children: [{
+                text: "基本概念",
+                link: "/principle/basic"
+            }, {
+                text: "架构设计",
+                link: "/principle/architecture"
+            }]
         },
         {
             text: '诞生过程',
