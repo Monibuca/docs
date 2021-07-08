@@ -8,6 +8,7 @@ module.exports = {
             indexName: 'monibuca'
           },
         nav: [
+            { text:'官网' , link:'https://monibuca.com',},
             { text: '引导', link: '/', activeMatch: '^/$|^/guide/' },
             {
                 text: '配置',
@@ -102,6 +103,9 @@ function getGuideSidebar() {
             },
             {
                 text:"GB28181",link:'/plugins/GB28181'
+            },
+            {
+                text:"hdl",link:"/plugins/hdl"
             }
             ]
         },{
