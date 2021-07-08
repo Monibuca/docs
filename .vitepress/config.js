@@ -99,6 +99,9 @@ function getGuideSidebar() {
             },
             {
                 text:"rtsp",link:'/plugins/rtsp'
+            },
+            {
+                text:"GB28181",link:'/plugins/GB28181'
             }
             ]
         },{

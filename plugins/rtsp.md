@@ -26,9 +26,9 @@ URL = "rtsp://admin:admin@192.168.1.212:554/cam/realmonitor?channel=2&subtype=1"
 StreamPath = "live/rtsp2"
 ```
 
-- ListenAddr是监听的地址
-- Reconnect 是否自动重连
-- RTSP.AutoPullList 可以配置多项，用于自动拉流，其中StreamPath必须是唯一的
+- `ListenAddr`是监听的地址
+- `Reconnect` 是否自动重连
+- `RTSP.AutoPullList` 可以配置多项，用于自动拉流，其中`StreamPath`必须是唯一的，自动拉流会在程序启动是自动发起
 
 ## 插件功能
 
@@ -45,8 +45,13 @@ ffmpeg -i **** rtsp://localhost/live/test
 ### 从远程拉取rtsp到m7s中
 
 可调用接口
-/api/rtsp/pull?target=[RTSP地址]&streamPath=[流标识]
+`/api/rtsp/pull?target=[RTSP地址]&streamPath=[流标识]`
 
 ### 罗列所有的rtsp协议的流
 
-/api/rtsp/list
+可调用接口
+`/api/rtsp/list`
+
+### 从m7s中拉取rtsp协议流
+
+该功能尚未开发完成
