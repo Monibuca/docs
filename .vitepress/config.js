@@ -114,10 +114,16 @@ function getGuideSidebar() {
                 text: "jessica", link: "/plugins/jessica"
             },
             {
+                text: "hls", link: "/plugins/hls"
+            },
+            {
                 text: "logrotate", link: "/plugins/logrotate"
             },
             {
                 text: "record", link: "/plugins/record"
+            },
+            {
+                text: "summary", link: "/plugins/summary"
             }
             ]
         }, {
