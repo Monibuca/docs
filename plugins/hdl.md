@@ -18,9 +18,14 @@ import (
 ```toml
 [HDL]
 ListenAddr = ":2020"
+ListenAddrTLS = ":2021"
+CertFile = "file.cert"
+KeyFile = "file.key"
 ```
-
-- ListenAddr是监听的地址，如果配置为空字符串，则是复用Gateway插件监听的公共端口
+- `ListenAddr`是监听的地址，如果配置为空字符串，则是复用Gateway插件监听的公共端口
+- `ListenAddrTLS` 公共https监听端口，默认为空，则不监听
+- `CertFile` https用的证书，默认为空
+- `KeyFile` https用的证书的key，默认为空
 
 ## 插件功能
 
