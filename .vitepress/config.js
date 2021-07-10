@@ -115,6 +115,9 @@ function getGuideSidebar() {
             },
             {
                 text: "logrotate", link: "/plugins/logrotate"
+            },
+            {
+                text: "record", link: "/plugins/record"
             }
             ]
         }, {

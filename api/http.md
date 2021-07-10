@@ -18,3 +18,20 @@
 ### 罗列所有的rtsp协议的流
 
 `/api/rtsp/list`
+
+
+## 录制相关
+
+- `/api/logrotate/tail` 监听日志输出，该请求是一个SSE（server-sent Event）
+- `/api/logrotate/find` 查找日志，目前只支持linux系统（使用grep）
+- `/api/logrotate/list` 列出所有日志文件
+- `/api/logrotate/open?file=xxx` 查看日志内容，入参是文件名
+- `/api/logrotate/download?file=xxx` 下载某个日志，入参是文件名
+
+
+## WebRTC
+
+- `/api/webrtc/play?streamPath=live/rtc`
+用于播放live/rtc的流，需要在请求的body中放入sdp的json数据，这个接口会返回服务端的sdp数据
+- `/api/webrtc/publish?streamPath=live/rtc`
+同上
