@@ -112,6 +112,9 @@ function getGuideSidebar() {
             },
             {
                 text: "jessica", link: "/plugins/jessica"
+            },
+            {
+                text: "logrotate", link: "/plugins/logrotate"
             }
             ]
         }, {
