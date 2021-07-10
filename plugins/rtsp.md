@@ -47,6 +47,12 @@ ffmpeg -i **** rtsp://localhost/live/test
 可调用接口
 `/api/rtsp/pull?target=[RTSP地址]&streamPath=[流标识]`
 
+## 使用编程方式拉流
+```go
+new(RTSP).PullStream("live/user1","rtsp://xxx.xxx.xxx.xxx/live/user1") 
+```
+
+
 ### 罗列所有的rtsp协议的流
 
 可调用接口
