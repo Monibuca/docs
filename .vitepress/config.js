@@ -125,6 +125,9 @@ function getGuideSidebar() {
             },
             {
                 text: "summary", link: "/plugins/summary"
+            },
+            {
+                text: "cluster",link:"/plugins/cluster"
             }
             ]
         }, {
