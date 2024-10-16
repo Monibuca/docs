@@ -11,6 +11,7 @@ export default withMermaid(
     lastUpdated: false,
     ignoreDeadLinks: true,
     cleanUrls: true,
+    base: '/docs/',
     head: [
       [
         "script",
