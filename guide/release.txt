@@ -1,0 +1,188 @@
+# v4.4.1
+* 9cb7010 1、增加SErepublish事件表示再次发布成功事件，使得SEPublish事件表示第一次发布成功。 2、修复push时ReConnectCount没有计数增加。 3、使用github.com/quic-go/quic-go v0.32.0版本。 4、修复订阅模式>1时没有从IDR帧开始的问题。 5、RTMP插件修复推流时MessageStreamID没有设置的问题。 6、RTSP插件升级第三方依赖库aler9/gortsplib 到 v2.1.0，并进行适配。 7、Stream中将保存状态变更历史信息。
+
+
+# v4.4.0
+* 8d5c6d6 增加时光回溯功能 订阅模式参数 内存回收机制 增加对时间长度的配置 解决首屏渲染无音频问题 修复rtmp对外推拉没有带入参数 修复dts生成时pts超过最大值导致错误的问题 修复rtmp解析时对扩展时间戳的处理 修复几处判空panic问题
+
+
+# v4.3.10
+* 3ead36c fix: 修复engine一处负优化，增加一个首屏渲染开关
+
+
+# v4.3.9
+* 3ead36c fix: 修复engine一处负优化，增加一个首屏渲染开关
+
+
+# v4.3.8
+* a4e1f49 1.优化Track数据写入流程，调用更清晰自然 2.对Subscribe增加3个配置项，用于指定订阅指定Track时的参数名 3.修复首次写入AbsTime总是从0开始引起的问题 4.修复订阅时，读取音频数据过迟问题 5.修复对外推拉流（rtmp、rtsp）时，异常退出没有关闭远端连接问题 6.修复record和hls收到发布事件后重复订阅问题
+
+
+# v4.3.7
+* 53cc788 1.将amf0编码器和解码器放到codec/amf.go中 2.对写入avcc音频进行长度判断 3.录制者设置为内部订阅者 4.修复edge插件远程拉取HDL时，初始化错误 5.增加MallocSlice函数用于减少内存复制 6.录制flv写完后对头部进行修改加入关键帧元数据使得播放flv可以拖动进度条
+
+
+# v4.3.6
+* 6b40297 1.拉取远端hls流平滑处理，解决卡顿问题。 2.拉流逻辑增加一处判空 3.设置speedlimit默认值从0改为500 4.snap插件的订阅者设置为内部订阅者防止影响自动关闭 5.gb28181的tcp范围端口不再读取ssrc值判断
+
+
+# v4.3.5
+* f8e50d0 注释一处println
+
+
+# v4.3.4
+* 361b052 1.修复Stream序列化循环引用问题 2.实现对subscribe中SubVideoTracks和SubAudioTracks的支持 3.修复读取ts中aac格式数据多次flush问题 4.修复subscribe结束时判断IsClosed调用对象错误 5.增加DefaultYaml功能解决插件默认配置被全局配置覆盖问题 6.修复rtsp插件订阅时参数未传入问题 7.snap插件和record插件采用DefaultYaml默认配置
+
+
+# v4.3.3
+* 27784f0 1.修复delayclosetimeout值被覆盖的bug 2.重构流中订阅者集合，减少订阅者对轨道的无效等待 3.实现内部订阅者功能，使得HLS插件不再影响最后一个订阅者离开逻辑 4.破坏性修改：pull配置中pullonstart类型改为map，pullonsubscribe修改为pullonsub，类型改为map 5.rtmp插件增加对远端流rtmps协议的支持，优化握手过程 6.修复gb28181插件对时间戳的处理bug（引起跳秒等问题） 7.hdl插件对重连机制进行优化，对于服务器返回非200的连接不再重连
+
+
+# v4.3.2
+* 34394b9 1.增加http配置中的timeout参数，用于设置http响应的超时时间 2.http配置增加自定义中间件功能 3.hdl插件和jessica插件增加对http超时的处理
+
+
+# v4.3.0
+* 7138565 engine升级到4.9.0，升级hls、hook、record、room
+
+
+# v4.2.9
+* a521c63 fix: 最后订阅者离开条件判断，edge插件只能拉一路的bug
+
+
+# v4.2.8
+* ed5e719 fix: http-flv远端拉流h265编码格式解析
+
+
+# v4.2.7
+* 664a64a 🐛 FIX: rtp缓存适配webrtc，修复录制插件重复录制问题以及崩溃报错
+
+
+# v4.2.6
+* f097e66 🐛 FIX: GB解决非同一域的目标地址问题，引擎增加SubscribeExist功能
+
+
+# v4.2.5
+* 2e8d4d2 📦 NEW: 加入fMP4格式直播流播放功能
+
+
+# v4.2.4
+* 8bb63c9 1.发布流首次超时时间随PublishTimeout配置 2.RTP打包较大AAC音频进行分包处理 3.截图插件默认不订阅音频提高速度 4.GB插件优化PS包解析兼容性 5.RTSP插件升级gortsplib版本 6.RTMP插件修复对外推流时流路径的设置
+
+
+# v4.2.2
+* c0b2a10 👌 IMPROVE: hls支持h265以及G711，Gb28181支持AAC
+
+
+# v4.2.1
+* 1a57aeb 🐛 FIX: rtmp握手协议，SEI帧处理
+
+
+# v4.2.0
+* 85b134d 👌 IMPROVE: 增加限速设置，修复gb单端口时音频时间戳单位
+
+
+# v4.1.11
+* 9969966 🐛 FIX: gb推测视频编码格式时判断错误
+
+
+# v4.1.10
+* 9969966 🐛 FIX: gb推测视频编码格式时判断错误
+
+
+# v4.1.9
+* 5482ab4 👌 IMPROVE: 更先进的rtp包乱序重排算法
+
+
+# v4.1.8
+* 61eaaab 🐛 FIX: gb插件dts防止自动生成
+
+
+# v4.1.7
+* 54f01a0 🐛 FIX: 控制台修改配置文件的功能
+
+
+# v4.1.6
+* 09570a6 🐛 FIX: 录制功能
+
+
+# v4.1.5
+* 00ff25e 🐛 FIX: 兼容go1.19 和m1
+
+
+# v4.1.4
+* 33b5c46 🐛 FIX: 修复aac包比较小的情况下导致访问越界问题
+
+
+# v4.1.3
+* 2b1bf24 🐛 修复logrotate插件windows下编译失败的bug
+
+
+# v4.1.0
+* d05bd7b 📦 NEW: 新增edge插件，提供简单级联功能
+
+
+# v4.0.13
+* 6f9fe7c 🐛 FIX: rtmp插件与srs服务器互通的问题
+
+
+# v4.0.12
+* 96d886c 🐛 FIX: hook插件读取配置文件错误
+
+
+# v4.0.11
+* ca2f695 🐛 FIX: gb拉流信令拼接错误
+
+
+# v4.0.10
+* 0fd608a 🐛 FIX: engine中订阅关键帧被覆盖问题，gb的ptzcmd中发送的deviceID值问题，acc的rtp包超过一个mtu时的解析问题
+
+
+# v4.0.9
+* d5e6a51 🐛 FIX: dts在无B帧情况下的生成机制修正，gb插件增加设备信息持久化重启实例后可快速恢复
+
+
+# v4.0.8
+* e035cf0 👌 IMPROVE: 增加rtsp拉流报错信息，gb插件增加ps流dump功能方便排查错误
+
+
+# v4.0.7
+* f82c423 🚀 RELEASE: 修复远端拉流保存并发问题，修复gb拉流PS包解析bug，导出部分插件
+
+
+# v4.0.6
+* 87f0806 API增加获取远端导入的流以及向远端推流的信息
+
+
+# v4.0.5
+* da69aae 修复gb插件中的pts和dts覆盖bug，兼容rtsp协议sdp中无sps和pps问题
+
+
+# v4.0.4
+* 6e8081a 1、增加配置日志级别；2、发布者增加可以配置断线延迟退出时间配置
+
+
+# v4.0.3
+* 70b5c55 修复数据轨道释放导致读取错误，以及写入annexb格式时的dts生成问题
+
+
+# v4.0.2
+* 4486c61 对rtmp协议写入数据增加判空逻辑
+
+
+# v4.0.1
+* 29f574a 增加10s的fps和bps历史统计，rtsp插件增加拉流时强制指定协议的配置，修复若干bug
+
+
+# v4.0.0
+* d12052e 修复gb28181插件ssrc取值以及ip获取的兼容性
+
+
+# v4.0.0
+* 9234c10 修复gb28181插件ssrc取值以及ip获取的兼容性
+
+
+# v4.0.0-beta9
+* 7a0964b Merge branch 'v4' of github.com:langhuihui/monibuca into v4
+
+

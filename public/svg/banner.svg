@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1920" height="1694" viewBox="0 0 1920 1694">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="矩形_111" data-name="矩形 111" width="1920" height="292" fill="#fff"/>
+    </clipPath>
+    <clipPath id="clip-path-2">
+      <rect id="矩形_30" data-name="矩形 30" width="1920" height="1409" fill="none"/>
+    </clipPath>
+    <linearGradient id="linear-gradient" y1="0.5" x2="1" y2="0.5" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#3a7fbd"/>
+      <stop offset="1" stop-color="#3a7fbd" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="0.5" y1="0.93" x2="0.5" y2="-0.049" xlink:href="#linear-gradient"/>
+    <clipPath id="clip-path-3">
+      <rect id="矩形_162" data-name="矩形 162" width="1920" height="930" fill="#fff" stroke="#707070" stroke-width="1"/>
+    </clipPath>
+    <radialGradient id="radial-gradient" cx="0.5" cy="0.5" r="0.771" gradientTransform="translate(0.758 0.168) rotate(180) scale(0.516 1)" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#128fbc" stop-opacity="0"/>
+      <stop offset="1" stop-color="#6d99f4"/>
+    </radialGradient>
+  </defs>
+  <g id="组_706" data-name="组 706" transform="translate(-1)">
+    <g id="蒙版组_2" data-name="蒙版组 2" transform="translate(1)" clip-path="url(#clip-path)">
+      <g id="组_46" data-name="组 46" transform="translate(0 -3)">
+        <g id="组_45" data-name="组 45" clip-path="url(#clip-path-2)">
+          <g id="组_44" data-name="组 44" transform="translate(-140.16)">
+            <path id="路径_120" data-name="路径 120" d="M-140.16,0s57.636,241.866,464.41,193.917,647.13-259.2,945.984-71.592,615.175,263.968,651.406,245.933S1921.64,0,1921.64,0Z" transform="translate(140.16)" opacity="0.61" fill="url(#linear-gradient)" style="mix-blend-mode: screen;isolation: isolate"/>
+            <path id="路径_121" data-name="路径 121" d="M0,942.993s161.92,165.19,141.44,252.059c0,0,293.771,89.852,282.565,165.16s-424,0-424,0Z" transform="translate(140.16 0)" opacity="0.61" fill="url(#linear-gradient-2)" style="mix-blend-mode: screen;isolation: isolate"/>
+            <path id="路径_122" data-name="路径 122" d="M1466.23,1353.847s81.729-189.344,210.47-158.8S1842.877,979.8,1908.638,995.179s40.754,319.544,40.754,319.544l-507.181,48.964" transform="translate(140.16 0)" opacity="0.65" fill="url(#linear-gradient-2)" style="mix-blend-mode: screen;isolation: isolate"/>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g id="蒙版组_3" data-name="蒙版组 3" transform="translate(1 764)" clip-path="url(#clip-path-3)">
+      <path id="路径_1065" data-name="路径 1065" d="M1920,2286.619c-82.538,46.859-212.342,88.547-412.965,88.547C1048.952,2375.166,876.541,2139,457.546,2139,245,2139,95.611,2190.285,0,2240.822V3299.5H1920Z" transform="translate(0 -2136.963)" opacity="0.1" fill="url(#radial-gradient)" style="mix-blend-mode: screen;isolation: isolate"/>
+    </g>
+  </g>
+</svg>
