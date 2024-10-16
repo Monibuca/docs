@@ -18,8 +18,7 @@ hero:
 features:
   - icon: 
       src: /logo.png
-    title: 简单好用、能力丰富、长期维护
-    details: ffmpeg命令全周期管理、列表+详情交互模式、跨平台支持、导入导出、中英文支持、自动更新
+    title: 二开友好、代码简洁、插件丰富、延迟极低、性能强悍、部署方便、生态共建、合作共赢
   - icon: 
       src: /wx-qun.jpg
       width: 150
