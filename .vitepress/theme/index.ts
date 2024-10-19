@@ -55,9 +55,9 @@ export default {
       )
       watch(() => router.route.path, (newPath) => {
         // @ts-ignore
-        const idProd = process.env.ENVIRONMENT == 'production'
+        // const idProd = process.env.ENVIRONMENT == 'production'
         // @ts-ignore
-        if (idProd && newPath == '/docs/') window.location.href = 'https://monibuca.com/'
+        // if (idProd && newPath == '/docs/') window.location.href = 'https://monibuca.com/'
       });
     }
   }
