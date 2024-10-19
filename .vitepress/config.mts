@@ -3,15 +3,20 @@ import { nav, sidebar } from "./configs";
 import { withMermaid } from "vitepress-plugin-mermaid";
 
 // https://vitepress.dev/reference/site-config
+
 export default withMermaid(
   defineConfig({
     mermaid:{},
+    lang: 'en-zh',
     title: "Monibuca",
     description: "Monibuca ",
     lastUpdated: false,
     ignoreDeadLinks: true,
-    cleanUrls: true,
-    base: '/docs/',
+    // cleanUrls: true,
+    // base: '/docs/',
+    // @ts-ignore
+    base: process.env.ENVIRONMENT == 'production' ? '/docs/' : '',
+    outDir: './.vitepress/docs',
     head: [
       [
         "script",

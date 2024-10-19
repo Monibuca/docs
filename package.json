@@ -1,11 +1,12 @@
 {
   "scripts": {
     "dev": "vitepress dev",
-    "build": "vitepress build",
-    "preview": "vitepress preview"
+    "prd": "cross-env ENVIRONMENT=production vitepress build",
+    "view": "ENVIRONMENT=production vitepress preview"
   },
   "devDependencies": {
     "@mdit-vue/shared": "^0.12.0",
+    "cross-env": "^7.0.3",
     "mermaid": "^11.3.0",
     "sass": "^1.58.3",
     "vitepress-plugin-mermaid": "^2.0.17",

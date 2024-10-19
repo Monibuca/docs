@@ -1,7 +1,8 @@
 <script setup lang="ts"></script>
 
 <template>
-  <video class="home-video" poster="/poster.png" src="/quick.mp4" controls="controls"></video>
+  <div>1111</div>
+  <!-- <video class="home-video" poster="/poster.png" src="" controls="controls"></video> -->
 </template>
 
 <style>

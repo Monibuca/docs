@@ -41,7 +41,7 @@ export default {
     }
 
     return h(DefaultTheme.Layout, props, {
-      'home-hero-image': () => h(HeroVideo)
+      // 'home-hero-image': () => h(HeroVideo)
     })
   },
   enhanceApp({ app, router, siteData }) {
@@ -53,6 +53,12 @@ export default {
         () => updateHomePageStyle(location.pathname === '/'),
         { immediate: true }
       )
+      watch(() => router.route.path, (newPath) => {
+        // @ts-ignore
+        const idProd = process.env.ENVIRONMENT == 'production'
+        // @ts-ignore
+        if (idProd && newPath == '/docs/') window.location.href = 'https://monibuca.com/'
+      });
     }
   }
 } satisfies Theme
