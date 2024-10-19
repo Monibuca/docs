@@ -1,8 +1,9 @@
 {
+  "name": "m7s",
   "scripts": {
     "dev": "vitepress dev",
     "prd": "cross-env ENVIRONMENT=production vitepress build",
-    "view": "ENVIRONMENT=production vitepress preview"
+    "view": "vitepress preview"
   },
   "devDependencies": {
     "@mdit-vue/shared": "^0.12.0",

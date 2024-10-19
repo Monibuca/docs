@@ -7,11 +7,11 @@ import { useData } from 'vitepress'
 import MNavLinks from './components/MNavLinks.vue'
 import HeroVideo from './components/HeroVideo.vue'
 
-import 'viewerjs/dist/viewer.min.css';
-import imageViewer from 'vitepress-plugin-image-viewer';
-import vImageViewer from 'vitepress-plugin-image-viewer/lib/vImageViewer.vue';
+import 'viewerjs/dist/viewer.min.css'
+import imageViewer from 'vitepress-plugin-image-viewer'
+import vImageViewer from 'vitepress-plugin-image-viewer/lib/vImageViewer.vue'
 
-import { useRoute } from 'vitepress';
+import { useRoute } from 'vitepress'
 
 let homePageStyle: HTMLStyleElement | undefined
 
@@ -33,7 +33,6 @@ function updateHomePageStyle(value: boolean) {
   }
 }
 
-
 export default {
   extends: DefaultTheme,
   Layout: () => {
@@ -51,8 +50,26 @@ export default {
     })
   },
   enhanceApp({ app, router, siteData }) {
+    if (typeof window !== 'undefined') {
+      const script = document.createElement('script')
+      script.src =
+        'https://lf-cdn.coze.cn/obj/unpkg/flow-platform/chat-app-sdk/0.1.0-beta.6/libs/cn/index.js'
+      script.onload = () => {
+        // 脚本加载完成后执行的代码
+        // @ts-ignore
+        new CozeWebSDK.WebChatClient({
+          config: {
+            bot_id: '7427521310093344779',
+          },
+          componentProps: {
+            title: 'Coze',
+          },
+        })
+      }
+      document.body.appendChild(script)
+    }
     app.component('MNavLinks', MNavLinks)
-    app.component('vImageViewer', vImageViewer);
+    app.component('vImageViewer', vImageViewer)
 
     if (typeof window !== 'undefined') {
       watch(
@@ -60,18 +77,21 @@ export default {
         () => updateHomePageStyle(location.pathname === '/'),
         { immediate: true }
       )
-      watch(() => router.route.path, (newPath) => {
-        // @ts-ignore
-        // const idProd = process.env.ENVIRONMENT == 'production'
-        // @ts-ignore
-        // if (idProd && newPath == '/docs/') window.location.href = 'https://monibuca.com/'
-      });
+      watch(
+        () => router.route.path,
+        (newPath) => {
+          // @ts-ignore
+          // const idProd = process.env.ENVIRONMENT == 'production'
+          // @ts-ignore
+          // if (idProd && newPath == '/docs/') window.location.href = 'https://monibuca.com/'
+        }
+      )
     }
   },
   setup() {
     // Get route
-    const route = useRoute();
+    const route = useRoute()
     // Using
-    imageViewer(route);
-  }
+    imageViewer(route)
+  },
 } satisfies Theme
