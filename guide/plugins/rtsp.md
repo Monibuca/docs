@@ -59,6 +59,6 @@ subscribe
 两项中未配置部分将使用全局配置
 :::
 
-## API
+## 接口 API
 
 <!--@include: @/block/api/api.rtsp.md-->

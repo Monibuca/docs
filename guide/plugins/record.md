@@ -53,7 +53,7 @@ record:
     fragment: 0
 ```
 
-## API
+## 接口 API
 
 - `/record/api/list/recording` 罗列所有正在录制中的流的信息
 - `/record/api/list?type=flv` 罗列所有录制的 flv 文件

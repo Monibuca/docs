@@ -10,6 +10,8 @@
     "mermaid": "^11.3.0",
     "sass": "^1.58.3",
     "vitepress-plugin-mermaid": "^2.0.17",
+    "viewerjs": "^1.11.6",
+    "vitepress-plugin-image-viewer": "^1.1.4",
     "vue": "^3.2.47"
   },
   "dependencies": {

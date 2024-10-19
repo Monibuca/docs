@@ -22,7 +22,7 @@ logrotate:
   formatter: 2006-01-02T15 # 日志文件名格式化，按照go layout格式化，默认按照小时
 ```
 
-## API 接口
+## 接口 API
 
 - `logrotate/api/tail` 监听日志输出，该请求是一个 SSE（server-sent Event）
 - `logrotate/api/find` 查找日志，目前只支持 linux 系统（使用 grep）

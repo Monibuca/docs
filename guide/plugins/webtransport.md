@@ -21,7 +21,7 @@ webtransport:
   keyfile: local.monibuca.com.key
 ```
 
-## API 接口
+## 接口 API
 
 - `/play/[streamPath]` 用来播放
 - `/push/[streamPath]` 用来推流

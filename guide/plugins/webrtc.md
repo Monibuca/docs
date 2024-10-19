@@ -42,7 +42,7 @@ webrtc:
 
 通过浏览器和 monibuca 交换 sdp 信息，然后读取 rtp 包或者发送 rtp 的方式进行
 
-## API
+## 接口 API
 
 ### 播放地址
 

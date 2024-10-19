@@ -12,7 +12,7 @@ https://github.com/Monibuca/plugin-debug
 import _ "m7s.live/plugin/debug/v4"
 ```
 
-## API
+## 接口 API
 
 ### `/debug/pprof`
 

@@ -82,10 +82,10 @@ global:
 
 ### 拉流配置
 
-某些插件包含从远端拉流的能力，故具有拉流配置，这些配置的格式都是一致的，如下：
+某些插件如 rtmp 包含从远端拉流的能力，故具有拉流配置，这些配置的格式都是一致的，如下：
 
 ```yaml
-某插件:
+rtmp:
   pull:
     repull: 10
     proxy: [Proxy URL]
@@ -106,10 +106,10 @@ global:
 
 ### 推流配置
 
-某些插件包含向远端服务器推流的能力，故具有推流配置，这些配置的格式都是一致的，如下：
+某些插件 如 rtsp 包含向远端服务器推流的能力，故具有推流配置，这些配置的格式都是一致的，如下：
 
 ```yaml
-某插件:
+rtsp:
   push:
     repush: 10
     pushlist:
@@ -126,12 +126,12 @@ global:
 示例：
 设置 global 下的 loglevel 为 debug
 
-```bash
+```sh
 $ export GLOBAL_LOGLEVEL=debug
 ```
 
 设置 record 下的 flv 的 fragment 为 10s
 
-```bash
+```sh
 $ export RECORD_FLV_FRAGMENT=10s
 ```

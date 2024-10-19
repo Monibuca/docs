@@ -18,7 +18,7 @@ https://github.com/Monibuca/plugin-hdl
 import _ "m7s.live/plugin/hdl/v4"
 ```
 
-## 默认插件配置
+## 插件配置
 
 ```yaml
 hdl:
@@ -28,6 +28,6 @@ hdl:
 <!--@include: @/block/config/config.pull.md-->
 ```
 
-## 接口
+## 接口 API
 
 <!--@include: @/block/api/api.hdl.md-->

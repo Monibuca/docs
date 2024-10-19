@@ -15,7 +15,7 @@ https://github.com/Monibuca/plugin-hls
 import _ "m7s.live/plugin/hls/v4"
 ```
 
-## API
+## 接口 API
 
 <!--@include: @/block/api/api.hls.md-->
 

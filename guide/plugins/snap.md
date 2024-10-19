@@ -21,7 +21,7 @@ snap:
 
 如果 ffmpeg 无法全局访问，则可修改 ffmpeg 路径为本地的绝对路径
 
-## API
+## 接口 API
 
 ### `/snap/[streamPath]`
 

@@ -19,7 +19,7 @@ monitor:
   path: monitor # 监控数据存储路径
 ```
 
-## API
+## 接口 API
 
 ### 获取监控的流历史数据
 
