@@ -9,9 +9,7 @@ https://github.com/Monibuca/plugin-hook
 ## 插件引入
 
 ```go
-import (
-    _ "m7s.live/plugin/hook/v4"
-)
+import _ "m7s.live/plugin/hook/v4"
 ```
 
 ## 配置

@@ -1,25 +1,25 @@
 # Prometheus exporter 插件
+
 该插件提供 Prometheus 信息采集功能，方便集成到 Prometheus，可采集下列信息：
 
 - Monibuca 基础信息，采集器名 **base**
 - CPU，包括：CPU 负载百分比，用户时间，系统时间等， 采集器名 **cpu**
 - 内存，包括：总内存，使用内存等，采集器名 **memory**
-- 磁盘，包括：Monibuca所在磁盘总空间，使用空间等，采集器名 **disk**
+- 磁盘，包括：Monibuca 所在磁盘总空间，使用空间等，采集器名 **disk**
 - 网络，包括：网络接收字节数，发送字节数等，采集器名 **net**
 - 媒体，包括：媒体流总数，客户端总数等，采集器名 **media**
 
-# 插件地址
+## 插件地址
+
 github.com/Monibuca/plugin-exporter
 
-# 插件引入
+## 插件引入
+
 ```go
-import (
-_ "m7s.live/plugin/exporter/v4"
-)
+import _ "m7s.live/plugin/exporter/v4"
 ```
 
-# 默认插件配置
-
+## 默认插件配置
 
 ```yaml
 exporter:
@@ -34,11 +34,14 @@ exporter:
       nicblacklist: ""
 ```
 
-# 接口API
-`/exporter/api/metrics` 
+## 接口 API
 
-# Prometheus 配置
+`/exporter/api/metrics`
+
+## Prometheus 配置
+
 在 scrape_configs 下添加一个 job ，比如：
+
 ```yaml
 scrape_configs:
   - job_name: "monibuca_exporter"
@@ -47,7 +50,8 @@ scrape_configs:
       - targets: ["ip:port"] # monibuca 的ip和端口
 ```
 
-# 二次开发
-亦可基于本插件，开发自定义的采集器，只需要实现Collector接口，即 **prometheus.Collector** 和 **engine.OnEvent** 的接口，并提供一个构建函数，可以参考 collector/cpu.go。
+## 二次开发
 
-在构建函数里，会提供 exporter.collector 下的配置。
+基于本插件，可以开发自定义的采集器，只需要实现 Collector 接口，即 **prometheus.Collector** 和 **engine.OnEvent** 的接口，并提供一个构建函数。
+
+可以参考 collector/cpu.go ，在构建函数里，会提供 exporter.collector 下的配置。

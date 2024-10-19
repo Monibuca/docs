@@ -9,21 +9,22 @@ https://github.com/Monibuca/plugin-preview
 ## 插件引入
 
 ```go
-import (
-    _ "m7s.live/plugin/preview/v4"
-)
+import _ "m7s.live/plugin/preview/v4"
 ```
 
-## 配置
+<!-- ## 配置
 
-无
+无 -->
 
 ## API
 
-- `/preview/[streamPath]?type=[hdl|hls|ws|wt|rtc|http-h265|http-h264|ws-h265|ws-h264]` 可用于预览直播流
-- `/preview/[filepath]` 可用于预览录像文件（开发中）
+<!--@include: @/block/api/api.preview.md-->
 
-## 使用WebTransport注意事项
+## 使用 WebTransport 注意事项
 
-- 本地测试需要本地启动https服务，并配置有效的证书
-- 由于证书与域名绑定，所以需要host里面配置对应的域名 例如：`127.0.0.1  monibuca.com`
+- 本地测试需要本地启动 https 服务，并配置有效的证书
+- 由于证书与域名绑定，所以需要 host 里面配置对应的域名， 例如：
+
+```
+127.0.0.1  monibuca.com
+```

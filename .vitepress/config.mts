@@ -37,6 +37,10 @@ export default withMermaid(
       logo: "/logo.png",
       nav,
       sidebar,
+      outline: [1,3],
+      // outline: {
+      //   level: 5
+      // },
       socialLinks: [
         // {
         //   link: "https://juejin.cn/user/2101921962531469/posts",

@@ -9,7 +9,7 @@ https://github.com/Monibuca/plugin-room
 ## 插件引入
 
 ```go
-    import (  _ "m7s.live/plugin/room/v4" )
+import _ "m7s.live/plugin/room/v4"
 ```
 
 ## 配置

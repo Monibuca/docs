@@ -9,9 +9,7 @@ https://github.com/Monibuca/plugin-edge
 ## 插件引入
 
 ```go
-import (
-    _ "m7s.live/plugin/edge/v4"
-)
+import _ "m7s.live/plugin/edge/v4"
 ```
 
 ## 配置
