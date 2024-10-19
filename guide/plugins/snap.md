@@ -23,8 +23,18 @@ snap:
 
 ## 接口 API
 
-### `/snap/[streamPath]`
+### 获取一帧截图
 
-获取一帧截图，返回最新的 I 帧的 jpg 图片。
-例如 m7s（localhost)中有流 live/test,
-可以通过 http://localhost:8080/snap/live/test 获取到该流的最新截图
+- **URL**: `/snap`
+- **请求方式**: GET
+- **返回**: 返回最新的 I 帧的 jpg 图片
+- **参数**:
+
+| 参数名     | 必填 | 类型   | 描述   |
+| ---------- | ---- | ------ | ------ |
+| streamPath | 是   | string | 流地址 |
+
+- **示例**:
+  - `/snap/[streamPath]`
+
+例如 m7s 中有流 live/test , 可以通过 http://localhost:8080/snap/live/test 获取到该流的最新截图

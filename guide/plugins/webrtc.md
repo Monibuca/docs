@@ -46,44 +46,81 @@ webrtc:
 
 ### 播放地址
 
-`/webrtc/play/[streamPath]`
+- **URL**: `/webrtc/play`
+- **请求体**：
+  ```
+    Body: "SDP"
+    Content-Type: "application/sdp"
+    Response Body: "SDP"
+  ```
+- **参数**:
 
-Body: `SDP`
+| 参数名     | 必填 | 类型   | 描述   |
+| ---------- | ---- | ------ | ------ |
+| streamPath | 是   | string | 流地址 |
 
-Content-Type: `application/sdp`
-
-Response Body: `SDP`
+- **示例**:
+  - `/webrtc/play/[streamPath]`
 
 ### 推流地址
 
-`/webrtc/push/[streamPath]`
+- **URL**: `/webrtc/push`
+- **请求体**：
+  ```
+    Body: "SDP"
+    Content-Type: "application/sdp"
+    Response Body: "SDP"
+  ```
+- **参数**:
 
-Body: `SDP`
+| 参数名     | 必填 | 类型   | 描述   |
+| ---------- | ---- | ------ | ------ |
+| streamPath | 是   | string | 流地址 |
 
-Content-Type: `application/sdp`
-
-Response Body: `SDP`
+- **示例**:
+  - `/webrtc/push/[streamPath]`
 
 ### 推流测试页面
 
-`/webrtc/test/publish`
+- **URL**: `/webrtc/test/publish`
+- **请求方式**: GET
+- **参数**:
 
-- 可增加参数`?streamPath=xxx`指定推流地址，默认为`live/webrtc`
-- 可以增加其他推流参数
+| 参数名     | 必填 | 类型   | 描述                                                         |
+| ---------- | ---- | ------ | ------------------------------------------------------------ |
+| streamPath | 否   | string | 可增加参数`?streamPath=xxx`指定推流地址，默认为`live/webrtc` |
+| xxxx       | 否   | string | 可以增加其他推流参数                                         |
+
+- **示例**:
+  - `/webrtc/test/publish?streamPath=xxx`
 
 ### 屏幕分享测试
 
-`/webrtc/test/screenshare`
+- **URL**: `/webrtc/test/screenshare`
+- **请求方式**: GET
+- **参数**:
 
-- 可增加参数`?streamPath=xxx`指定推流地址，默认为`live/webrtc`
-- 可以增加其他推流参数
+| 参数名     | 必填 | 类型   | 描述                                                         |
+| ---------- | ---- | ------ | ------------------------------------------------------------ |
+| streamPath | 否   | string | 可增加参数`?streamPath=xxx`指定推流地址，默认为`live/webrtc` |
+| xxxx       | 否   | string | 可以增加其他推流参数                                         |
+
+- **示例**:
+  - `/webrtc/test/screenshare?streamPath=xxx`
 
 ### 播放测试页面
 
-`/webrtc/test/subscribe`
+- **URL**: `/webrtc/test/subscribe`
+- **请求方式**: GET
+- **参数**:
 
-- 可增加参数`?streamPath=xxx`指定播放地址，默认为`live/webrtc`
-- 可以增加其他播放参数
+| 参数名     | 必填 | 类型   | 描述                                                         |
+| ---------- | ---- | ------ | ------------------------------------------------------------ |
+| streamPath | 否   | string | 可增加参数`?streamPath=xxx`指定播放地址，默认为`live/webrtc` |
+| xxxx       | 否   | string | 可以增加其他播放参数                                         |
+
+- **示例**:
+  - `/webrtc/test/subscribe?streamPath=xxx`
 
 ## WHIP
 

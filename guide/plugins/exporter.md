@@ -11,7 +11,7 @@
 
 ## 插件地址
 
-github.com/Monibuca/plugin-exporter
+https://github.com/Monibuca/plugin-exporter
 
 ## 插件引入
 
@@ -36,7 +36,13 @@ exporter:
 
 ## 接口 API
 
-`/exporter/api/metrics`
+### Prometheus 信息采集
+
+- **URL**: `/exporter/api/metrics`
+- **请求方式**: GET
+- **返回**:
+- **示例**:
+  - `/exporter/api/metrics`
 
 ## Prometheus 配置
 

@@ -24,8 +24,44 @@ logrotate:
 
 ## 接口 API
 
-- `logrotate/api/tail` 监听日志输出，该请求是一个 SSE（server-sent Event）
-- `logrotate/api/find` 查找日志，目前只支持 linux 系统（使用 grep）
-- `logrotate/api/list` 列出所有日志文件
-- `logrotate/api/open?file=xxx` 查看日志内容，入参是文件名
-- `logrotate/api/download?file=xxx` 下载某个日志，入参是文件名
+### 监听日志输出
+
+- **URL**: `/logrotate/api/tail`
+- **请求方式**: SSE（server-sent Event）
+
+### 查找日志
+
+- **URL**: `/logrotate/api/find`
+- **描述**: 目前只支持 linux 系统（使用 grep）
+- **请求方式**: GET
+
+### 列出所有日志文件
+
+- **URL**: `/logrotate/api/list`
+- **请求方式**: GET
+
+### 查看日志内容
+
+- **URL**: `/logrotate/api/open`
+- **请求方式**: GET
+- **参数**:
+
+| 参数名 | 必填 | 类型   | 描述   |
+| ------ | ---- | ------ | ------ |
+| file   | 是   | string | 文件名 |
+
+- **示例**:
+  - `/logrotate/api/open?file=xxxx`
+
+### 下载某个日志
+
+- **URL**: `/logrotate/api/download`
+- **请求方式**: GET
+- **参数**:
+
+| 参数名 | 必填 | 类型   | 描述   |
+| ------ | ---- | ------ | ------ |
+| file   | 是   | string | 文件名 |
+
+- **示例**:
+  - `/logrotate/api/download?file=xxxx`

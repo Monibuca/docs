@@ -55,18 +55,62 @@ record:
 
 ## 接口 API
 
-- `/record/api/list/recording` 罗列所有正在录制中的流的信息
-- `/record/api/list?type=flv` 罗列所有录制的 flv 文件
-- `/record/api/start?type=flv&streamPath=live/rtc&fileName=xxx&fragment=xxx` 开始录制某个流,返回一个字符串用于停止录制用的 id(fileName 是可选的，且只用于非切片情况,fragment 也是可选的,如果 fileName 和 fragment 都存在，则忽略 fileName)
-- `/record/api/stop?id=xxx` 停止录制某个流
+### 罗列所有正在录制中的流的信息
 
-其中将 type 值改为 mp4 则录制成 fmp4 格式。
+- **URL**: `/record/api/list/recording`
+- **请求方式**: GET
+
+### 罗列所有录制的文件
+
+- **URL**: `/record/api/list`
+- **请求方式**: GET
+- **参数**:
+
+| 参数名 | 必填 | 类型   | 描述                          |
+| ------ | ---- | ------ | ----------------------------- |
+| type   | 是   | string | 文件类型， flv 、 fmp4 、 hls |
+
+- **示例**:
+  - `/record/api/list?type=flv`
+  - `/record/api/list?type=fmp4`
+
+### 开始录制某个流
+
+- **URL**: `/record/api/start`
+- **请求方式**: GET
+- **返回**: 返回一个字符串用于停止录制用的 id
+- **参数**:
+
+| 参数名     | 必填 | 类型   | 描述                          |
+| ---------- | ---- | ------ | ----------------------------- |
+| type       | 是   | string | 文件类型， flv 、 fmp4 、 hls |
+| streamPath | 是   | string | 流地址， 默认是 live/rtc      |
+| fileName   | 否   | string | 文件名字                      |
+| fragment   | 否   | string | 切片名字                      |
+
+> fileName 是可选的，且只用于非切片情况,fragment 也是可选的,如果 fileName 和 fragment 都存在，则忽略 fileName
+
+- **示例**:
+  - `/record/api/start?type=flv&streamPath=live/rtc&fileName=xxx&fragment=xxx`
+
+### 停止录制某个流
+
+- **URL**: `/record/api/stop`
+- **请求方式**: GET
+- **参数**:
+
+| 参数名 | 必填 | 类型   | 描述                   |
+| ------ | ---- | ------ | ---------------------- |
+| id     | 是   | string | start 接口返回的 id 值 |
+
+- **示例**:
+  - `/record/api/stop?id=xxx`
 
 ## 点播功能
 
 访问格式：
 
-```
+```sh
 [http/https]://[host]:[port]/record/[streamPath].[flv|mp4|m3u8|h264|h265]
 ```
 
