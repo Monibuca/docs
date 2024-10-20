@@ -59,7 +59,7 @@ export default withMermaid(
       <a href="https://beian.miit.gov.cn/" style="color: #939393;text-decoration: none;" target="_blank">
         苏ICP备2023025807号-3
       </a>
-      <img src="/beian.png" style="margin: 0 5px;"></img>
+      <img src="./beian.png" style="margin: 0 5px;"></img>
       <a
         href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=32011302321580"
         target="_blank"

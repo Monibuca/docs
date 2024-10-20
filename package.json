@@ -1,9 +1,10 @@
 {
-  "name": "m7s",
+  "name": "docs",
+  "private": "true",
   "scripts": {
     "dev": "vitepress dev",
     "prd": "cross-env ENVIRONMENT=production vitepress build",
-    "view": "vitepress preview"
+    "preview": "cross-env ENVIRONMENT=production vitepress preview"
   },
   "devDependencies": {
     "@mdit-vue/shared": "^0.12.0",
