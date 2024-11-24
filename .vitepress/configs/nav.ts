@@ -6,16 +6,15 @@ export const nav: DefaultTheme.Config['nav'] = [
     activeMatch: '/guide/',
     link: '/guide/startup'
   },
-
+  {
+    text: '竞品对比',
+    activeMatch: '/eye/',
+    link: '/eye/all'
+  },
   {
     text: 'm7s admin',
     activeMatch: '/admin/',
     link: '/admin/startup'
-  },
-  {
-    text: 'm7s eye',
-    activeMatch: '/eye/',
-    link: '/eye/startup'
   },
   {
     text: '场景案例',

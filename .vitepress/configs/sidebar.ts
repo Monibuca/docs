@@ -8,7 +8,7 @@ export const sidebar = {
   '/eye/': [
     {
       text: '开始',
-      items: [{ text: '快速起步', link: '/eye/startup' }],
+      items: [{ text: '竞品对比', link: '/eye/all' }],
     },
   ],
   '/cook/': [
@@ -23,6 +23,7 @@ export const sidebar = {
       items: [
         { text: '汇总', link: '/faq/all' },
         { text: 'ffmpeg推流失败', link: '/faq/ffmpeg推流失败' },
+        { text: '并发拉流能支持多少路', link: '/faq/并发拉流能支持多少路' },
         { text: '浏览器播放rtmp和rtsp失败', link: '/faq/浏览器播放rtmp和rtsp失败' },
         { text: 'gb插件能收到设备注册但是没有流', link: '/faq/gb插件能收到设备注册但是没有流' },
         { text: 'obs推送rtsp失败', link: '/faq/obs推送rtsp失败' },
