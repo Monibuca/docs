@@ -23,6 +23,7 @@ export const sidebar = {
       items: [
         { text: '汇总', link: '/faq/all' },
         { text: 'ffmpeg推流失败', link: '/faq/ffmpeg推流失败' },
+        { text: '社区版和pro版区别', link: '/faq/社区版和pro版区别' },
         { text: '并发拉流能支持多少路', link: '/faq/并发拉流能支持多少路' },
         { text: '浏览器播放rtmp和rtsp失败', link: '/faq/浏览器播放rtmp和rtsp失败' },
         { text: 'gb插件能收到设备注册但是没有流', link: '/faq/gb插件能收到设备注册但是没有流' },
