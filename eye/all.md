@@ -68,11 +68,11 @@
     </tr>
     <tr style="background-color: #ffff99;">
       <td style="font-weight:bold;">部署难度</td>
-      <td>中等</td>
-      <td>中等</td>
+      <td>高</td>
+      <td>高</td>
       <td style="font-weight:bold;">
         很低
-        <a href="http://localhost:5173/guide/startup.html#%E5%AE%89%E8%A3%85">查看部署文档</a>
+        <a href="https://monibuca.com/docs/guide/startup.html#%E5%AE%89%E8%A3%85" target="_blank">查看部署文档</a>
       </td>
     </tr>
     <tr>
@@ -91,7 +91,10 @@
       <td>插件系统</td>
       <td>支持</td>
       <td>支持</td>
-      <td>支持</td>
+       <td style="font-weight:bold;">
+        支持
+        <a href="https://monibuca.com/plugin" target="_blank">查看支持插件</a>
+      </td>
     </tr>
     <tr>
       <td>流媒体处理</td>
